@@ -2,7 +2,7 @@
     <v-data-table
             :headers="headers"
             :items="workers"
-            class="elevation-1"
+            class="elevation-5"
     >
         <template v-slot:items="props">
             <td>{{ props.item.firstName + ' ' + props.item.lastName }}</td>
@@ -33,6 +33,8 @@
 
 <script>
     import axios from 'axios'
+    import {EventBus} from "@/event-bus";
+    import getIndex from "../../utils/utils.js"
 
     export default {
         name: "WorkersTable",
@@ -53,11 +55,19 @@
                 workers: []
             }
         },
+        watch() {
+
+        },
         methods: {
+            editWorker(worker) {
+                EventBus.$emit("workers-edit-dialog", worker)
+            },
             deleteWorker(worker) {
                 axios.delete("api/workers/" + worker.id)
                     .then(() => {
+                        // alert()
                         const index = this.workers.indexOf(worker);
+                        alert(index);
                         this.workers.splice(index, 1);
                     });
             }
@@ -66,7 +76,18 @@
             axios.get("api/workers")
                 .then(res => {
                     this.workers = res.data;
+                    this.workers.sort((a, b) => a.id > b.id ? 1 : -1);
                 });
+        },
+        mounted() {
+            EventBus.$on("edit-worker", (worker) => {
+                let index = getIndex(this.workers, worker.id);
+                this.workers.splice(index, 1, worker);
+            });
+
+            EventBus.$on("add-worker", (worker) => {
+                this.workers.push(worker);
+            });
         }
     }
 </script>
