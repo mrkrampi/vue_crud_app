@@ -11,6 +11,7 @@
             <workers-dialog></workers-dialog>
         </v-toolbar>
         <workers-table></workers-table>
+        <snackbar></snackbar>
     </div>
 </template>
 
@@ -18,9 +19,10 @@
 
     import WorkersDialog from "@/components/workers/WorkersDialog";
     import WorkersTable from "@/components/workers/WorkersTable";
+    import Snackbar from "@/components/others/Snackbar";
     export default {
         name: "Workers",
-        components: {WorkersTable, WorkersDialog}
+        components: {Snackbar, WorkersTable, WorkersDialog}
     }
 </script>
 

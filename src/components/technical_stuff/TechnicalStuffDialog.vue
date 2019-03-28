@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-dialog v-model="dialog" max-width="500px">
         <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Додати працівника</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">Додати технічного працівника</v-btn>
         </template>
         <v-card>
             <v-card-title>
@@ -12,34 +12,34 @@
                 <v-container grid-list-md>
                     <v-layout wrap>
                         <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="worker.firstName" label="Ім'я"></v-text-field>
+                            <v-text-field v-model="tech.firstName" label="Ім'я"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="worker.patronymic" label="По батькові"></v-text-field>
+                            <v-text-field v-model="tech.patronymic" label="По батькові"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="worker.lastName" label="Прізвище"></v-text-field>
+                            <v-text-field v-model="tech.lastName" label="Прізвище"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md6>
                             <!--                            <birthday-picker></birthday-picker>-->
-                            <v-text-field v-model="worker.birthday" label="Дата народження"></v-text-field>
+                            <v-text-field v-model="tech.birthday" label="Дата народження"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md6>
-                            <v-text-field v-model="worker.phoneNumber" label="Номер телефону"></v-text-field>
+                            <v-text-field v-model="tech.phoneNumber" label="Номер телефону"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md12>
-                            <v-text-field v-model="worker.address" label="Адреса"></v-text-field>
+                            <v-text-field v-model="tech.address" label="Адреса"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md6>
-                            <v-text-field v-model="worker.salary" label="Зарплата"></v-text-field>
+                            <v-text-field v-model="tech.salary" label="Зарплата"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md6>
-                            <v-text-field v-model="worker.hireDate" label="Дата прийому на роботу"></v-text-field>
+                            <v-text-field v-model="tech.hireDate" label="Дата прийому на роботу"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md12>
                             <v-select
                                     :items="categories"
-                                    v-model="worker.category"
+                                    v-model="tech.category"
                                     item-text="categoryName"
                                     item-value="id"
                                     return-object
@@ -67,41 +67,43 @@
     import axios from "axios";
 
     export default {
-        name: "WorkersDialog",
+        name: "TechnicalStuffDialog",
         components: {/*BirthdayPicker*/},
         data() {
             return {
                 categories: [],
                 dialog: false,
-                worker: {
+                tech: {
                     fistName: '',
                     patronymic: '',
                     lastName: '',
+                    birthday: new Date(),
+                    address: '',
                     phoneNumber: '',
                     salary: 0,
-                    hireDate: new Date(),
-                    birthday: new Date()
+                    hireDate: new Date()
                 },
-                defaultWorker: {
+                defaultTech: {
                     fistName: '',
                     patronymic: '',
                     lastName: '',
+                    birthday: new Date(),
+                    address: '',
                     phoneNumber: '',
                     salary: 0,
-                    hireDate: new Date(),
-                    birthday: new Date()
+                    hireDate: new Date()
                 }
             }
         },
         computed: {
             formTitle() {
-                return this.worker.id ? "Редагування" : "Додавання";
+                return this.tech.id ? "Редагування" : "Додавання";
             }
         },
         watch: {
             dialog(val) {
                 if (!val) {
-                    this.worker = {};
+                    this.tech = {};
                     this.close();
                 }
             }
@@ -110,38 +112,38 @@
             close() {
                 this.dialog = false;
                 setTimeout(() => {
-                    this.worker = Object.assign({}, this.defaultWorker);
+                    this.tech = Object.assign({}, this.defaultWorker);
                 }, 300)
             },
             save() {
-                if (this.worker.id) {
+                if (this.tech.id) {
                     axios({
                         method: "PUT",
-                        url: "api/workers/" + this.worker.id,
-                        data: this.worker,
+                        url: "api/technical_stuff/" + this.tech.id,
+                        data: this.tech,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }).then(() => {
-                        const worker = Object.assign({}, this.worker);
+                        const newTech = Object.assign({}, this.tech);
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-worker", worker)
+                        EventBus.$emit("edit-tech", newTech)
                     })
                         .catch(err => alert(err));
                 } else {
                     axios({
                         method: "POST",
-                        url: "api/workers/",
-                        data: this.worker,
+                        url: "api/technical_stuff/",
+                        data: this.tech,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }).then(() => {
-                        const worker = Object.assign({}, this.worker);
+                        const newTech = Object.assign({}, this.tech);
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-worker", worker);
+                        EventBus.$emit("add-tech", newTech);
                     }).catch(err => alert(err));
                 }
             },
@@ -150,11 +152,10 @@
             axios.get("api/category_of_workers")
                 .then(res => {
                     res.data.forEach(i => this.categories.push(i));
-                    // alert(JSON.stringify(this.categories));
                 }).catch(err => alert(err));
 
-            EventBus.$on("workers-edit-dialog", (worker) => {
-                this.worker = Object.assign({}, worker);
+            EventBus.$on("tech-edit-dialog", (tech) => {
+                this.tech = Object.assign({}, tech);
                 this.dialog = true;
             });
         }

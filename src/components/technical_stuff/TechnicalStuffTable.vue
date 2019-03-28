@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-data-table
             :headers="headers"
-            :items="workers"
+            :items="technicalStuff"
             :pagination.sync="pagination"
             class="elevation-10"
     >
@@ -15,13 +15,13 @@
                 <v-icon
                         small
                         class="mr-2"
-                        @click="editWorker(props.item)"
+                        @click="editTech(props.item)"
                 >
                     edit
                 </v-icon>
                 <v-icon
                         small
-                        @click="deleteWorker(props.item)"
+                        @click="deleteTech(props.item)"
                 >
                     delete
                 </v-icon>
@@ -38,10 +38,9 @@
     import getIndex from "../../utils/utils.js"
 
     export default {
-        name: "WorkersTable",
+        name: "TechnicalStuffTable",
         data() {
             return {
-                dialog: false,
                 headers: [
                     {text: 'ПІБ', value: 'name', sortable: false},
                     {text: 'Адреса', value: 'address', sortable: false},
@@ -53,27 +52,27 @@
                 pagination: {
                     rowsPerPage: 10
                 },
-                workers: []
+                technicalStuff: []
             }
         },
         methods: {
-            editWorker(worker) {
-                EventBus.$emit("workers-edit-dialog", worker)
+            editTech(tech) {
+                EventBus.$emit("tech-edit-dialog", tech)
             },
-            deleteWorker(worker) {
-                axios.delete("api/workers/" + worker.id)
+            deleteTech(tech) {
+                axios.delete("api/technical_stuff/" + tech.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
-                        const index = this.workers.indexOf(worker);
-                        this.workers.splice(index, 1);
+                        const index = this.technicalStuff.indexOf(tech);
+                        this.technicalStuff.splice(index, 1);
                     });
             }
         },
         created() {
-            axios.get("api/workers")
+            axios.get("api/technical_stuff")
                 .then(res => {
-                    this.workers = res.data;
-                    this.workers.sort((a, b) => {
+                    this.technicalStuff = res.data;
+                    this.technicalStuff.sort((a, b) => {
                         let aFullName = a.firstName + " " + a.lastName;
                         let bFullName = b.firstName + " " + b.lastName;
 
@@ -82,13 +81,13 @@
                 });
         },
         mounted() {
-            EventBus.$on("edit-worker", (worker) => {
-                let index = getIndex(this.workers, worker.id);
-                this.workers.splice(index, 1, worker);
+            EventBus.$on("edit-tech", (tech) => {
+                let index = getIndex(this.technicalStuff, tech.id);
+                this.technicalStuff.splice(index, 1, tech);
             });
 
-            EventBus.$on("add-worker", (worker) => {
-                this.workers.push(worker);
+            EventBus.$on("add-tech", (worker) => {
+                this.technicalStuff.push(worker);
             });
         }
     }
