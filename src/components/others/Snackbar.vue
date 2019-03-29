@@ -15,7 +15,7 @@
                 flat
                 @click="snackbar = false"
         >
-            Close
+            Закрити
         </v-btn>
     </v-snackbar>
 </template>

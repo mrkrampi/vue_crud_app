@@ -58,7 +58,7 @@
         },
         methods: {
             editWorker(worker) {
-                EventBus.$emit("workers-edit-dialog", worker)
+                EventBus.$emit("workers-edit-dialog", worker);
             },
             deleteWorker(worker) {
                 axios.delete("api/workers/" + worker.id)
