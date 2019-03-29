@@ -5,6 +5,7 @@ import Workers from "@/pages/Workers";
 import TechnicalStuff from "@/pages/TechnicalStuff";
 import Planes from "@/pages/Planes";
 import Helicopters from "@/pages/Helicopters";
+import Rockets from "@/pages/Rockets";
 
 
 Vue.use(VueRouter);
@@ -15,6 +16,7 @@ const routes = [
     {path: '/tech', component: TechnicalStuff},
     {path: '/planes', component: Planes},
     {path: '/helicopters', component: Helicopters},
+    {path: '/rockets', component: Rockets},
     {path: '*', component: HelloWorld}
 ];
 

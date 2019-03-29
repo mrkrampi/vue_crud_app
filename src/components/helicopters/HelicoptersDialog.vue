@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <v-dialog v-model="dialog" max-width="500px">
+    <v-dialog v-model="dialog" max-width="700px">
         <template v-slot:activator="{ on }">
             <v-btn color="primary" dark class="mb-2" v-on="on">Додати гелікоптер</v-btn>
         </template>

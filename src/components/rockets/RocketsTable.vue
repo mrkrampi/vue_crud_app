@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-data-table
             :headers="headers"
-            :items="helicopters"
+            :items="rockets"
             :loading="loading"
             :pagination.sync="pagination"
             class="elevation-10"
@@ -9,22 +9,21 @@
         <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:items="props">
             <td>{{ props.item.name }}</td>
-            <td class="text-xs-left">{{ props.item.countOfSits }}</td>
-            <td class="text-xs-left">{{ props.item.maxSpeed }} км/год</td>
-            <td class="text-xs-left">{{ props.item.powerOfEngines }} к.с.</td>
+            <td class="text-xs-left">{{ props.item.weight }}</td>
             <td class="text-xs-left">{{ props.item.flightRange }} км.</td>
-            <td class="text-xs-left">{{ props.item.fuelCapacity }} літр</td>
+            <td class="text-xs-left">{{ props.item.powerOfCharge }}</td>
+            <td class="text-xs-left">{{ props.item.typeOfRocket.category }}</td>
             <td class="justify-center layout px-0">
                 <v-icon
                         small
                         class="mr-2"
-                        @click="editHelicopter(props.item)"
+                        @click="editRocket(props.item)"
                 >
                     edit
                 </v-icon>
                 <v-icon
                         small
-                        @click="deleteHelicopter(props.item)"
+                        @click="deleteRocket(props.item)"
                 >
                     delete
                 </v-icon>
@@ -37,59 +36,58 @@
 </template>
 
 <script>
-    import axios from 'axios/index';
+    import axios from 'axios';
     import {EventBus} from "@/event-bus";
     import getIndex from "@/utils/utils";
 
     export default {
-        name: "HelicopterTable",
+        name: "RocketsTable",
         data() {
             return {
                 dialog: false,
                 headers: [
                     {text: 'Назва', value: 'name', sortable: false},
-                    {text: 'Кількість сидінь', value: 'countOfSits', sortable: false},
-                    {text: 'Максимальна швидкість', value: 'maxSpeed', sortable: false},
-                    {text: 'Потужність двигунів', value: 'powerOfEngines', sortable: false},
+                    {text: 'Маса', value: 'weight', sortable: false},
                     {text: 'Дальність польоту', value: 'flightRange', sortable: false},
-                    {text: 'Запас палива', value: 'fuelCapacity', sortable: false},
+                    {text: 'Сила заряду', value: 'powerOfCharge', sortable: false},
+                    {text: 'Тип ракети', value: 'typeOfRocket', sortable: false},
                     {text: 'Дії', value: 'name', sortable: false}
                 ],
                 loading: true,
                 pagination: {
                     rowsPerPage: 10
                 },
-                helicopters: []
+                rockets: []
             }
         },
         methods: {
-            deleteHelicopter(helicopter) {
-                axios.delete("api/helicopters/" + helicopter.id)
+            editRocket(rocket) {
+                EventBus.$emit("rockets-edit-dialog", rocket)
+            },
+            deleteRocket(rocket) {
+                axios.delete("api/rockets/" + rocket.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
-                        const index = this.helicopters.indexOf(helicopter);
-                        this.helicopters.splice(index, 1);
+                        const index = this.helicopters.indexOf(rocket);
+                        this.rockets.splice(index, 1);
                     });
-            },
-            editHelicopter(helicopter) {
-                EventBus.$emit("helicopter-edit-dialog", helicopter)
             }
         },
         mounted() {
-            axios.get("api/helicopters")
+            axios.get("api/rockets")
                 .then(res => {
                     this.loading = false;
-                    this.helicopters = res.data;
-                    this.helicopters.sort((a, b) => a.name > b.name ? 1 : -1);
+                    this.rockets = res.data;
+                    this.rockets.sort((a, b) => a.name > b.name ? 1 : -1);
                 });
 
-            EventBus.$on("edit-helicopter", (helicopter) => {
-                let index = getIndex(this.helicopters, helicopter.id);
-                this.helicopters.splice(index, 1, helicopter);
+            EventBus.$on("edit-rocket", (rocket) => {
+                let index = getIndex(this.rockets, rocket.id);
+                this.rockets.splice(index, 1, rocket);
             });
 
-            EventBus.$on("add-helicopter", (helicopter) => {
-                this.workers.push(helicopter);
+            EventBus.$on("add-rocket", (rocket) => {
+                this.rockets.push(rocket);
             });
         }
     }
