@@ -8,9 +8,9 @@
                     vertical
             ></v-divider>
             <v-spacer></v-spacer>
-            <planes-dialog></planes-dialog>
         </v-toolbar>
         <planes-table></planes-table>
+        <planes-dialog></planes-dialog>
         <snackbar></snackbar>
     </div>
 </template>

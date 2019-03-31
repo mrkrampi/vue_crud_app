@@ -1,15 +1,6 @@
 <template>
     <div>
-        <v-toolbar color="white" app>
-            <v-toolbar-title>Працівники</v-toolbar-title>
-            <v-divider
-                    class="mx-2"
-                    inset
-                    vertical
-            ></v-divider>
-            <v-spacer></v-spacer>
-            <workers-dialog></workers-dialog>
-        </v-toolbar>
+        <workers-dialog></workers-dialog>
         <workers-table></workers-table>
         <snackbar></snackbar>
     </div>
