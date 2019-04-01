@@ -1,17 +1,8 @@
 <template>
     <div>
-        <v-toolbar color="white" app>
-            <v-toolbar-title>Технічний пресонал</v-toolbar-title>
-            <v-divider
-                    class="mx-2"
-                    inset
-                    vertical
-            ></v-divider>
-            <v-spacer></v-spacer>
-            <technical-stuff-dialog></technical-stuff-dialog>
-        </v-toolbar>
-        <snackbar></snackbar>
         <technical-stuff-table></technical-stuff-table>
+        <technical-stuff-dialog></technical-stuff-dialog>
+        <snackbar></snackbar>
     </div>
 </template>
 

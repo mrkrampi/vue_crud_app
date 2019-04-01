@@ -1,7 +1,9 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-dialog v-model="dialog" max-width="700px">
         <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Додати ракету</v-btn>
+            <v-btn fab dark color="indigo" v-on="on" absolute right>
+                <v-icon dark>add</v-icon>
+            </v-btn>
         </template>
         <v-card>
             <v-card-title>

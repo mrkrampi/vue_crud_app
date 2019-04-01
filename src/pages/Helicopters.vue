@@ -1,16 +1,7 @@
 <template>
     <div>
-        <v-toolbar color="white" app>
-            <v-toolbar-title>Гелікоптери</v-toolbar-title>
-            <v-divider
-                    class="mx-2"
-                    inset
-                    vertical
-            ></v-divider>
-            <v-spacer></v-spacer>
-            <helicopters-dialog></helicopters-dialog>
-        </v-toolbar>
         <helicopter-table></helicopter-table>
+        <helicopters-dialog></helicopters-dialog>
         <snackbar></snackbar>
     </div>
 </template>

@@ -90,8 +90,8 @@
                 this.planes.splice(index, 1, plane);
             });
 
-            EventBus.$on("add-worker", (plane) => {
-                this.workers.push(plane);
+            EventBus.$on("add-plane", (plane) => {
+                this.planes.push(plane);
             });
         }
     }

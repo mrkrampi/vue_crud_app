@@ -1,18 +1,24 @@
 <template>
-    <div>
+    <nav>
+        <v-toolbar :clipped="primaryDrawer.clipped" app absolute>
+            <v-toolbar-side-icon
+                    v-if="primaryDrawer.type !== 'permanent'"
+                    @click="primaryDrawer.model = !primaryDrawer.model"
+            ></v-toolbar-side-icon>
+            <v-toolbar-title>База даних</v-toolbar-title>
+        </v-toolbar>
         <v-navigation-drawer
                 v-model="primaryDrawer.model"
                 :permanent="primaryDrawer.type === 'permanent'"
                 :temporary="primaryDrawer.type === 'temporary'"
                 :clipped="primaryDrawer.clipped"
                 :floating="primaryDrawer.floating"
-                :mini-variant="primaryDrawer.mini"
                 absolute
                 overflow
                 app
         >
             <v-toolbar>
-                <v-list>
+                <v-list dense>
                     <v-list-tile>
                         <v-list-tile-title class="title">
                             Меню
@@ -27,7 +33,7 @@
                 <v-list-tile
                         v-for="item in items"
                         :key="item.title"
-                        
+
                         @click="go(item.path)"
                 >
                     <v-list-tile-content>
@@ -37,19 +43,7 @@
             </v-list>
 
         </v-navigation-drawer>
-        <v-toolbar :clipped-left="primaryDrawer.clipped" app absolute>
-            <v-toolbar-side-icon
-                    v-if="primaryDrawer.type !== 'permanent'"
-                    @click.stop="primaryDrawer.model = !primaryDrawer.model"
-            ></v-toolbar-side-icon>
-            <v-toolbar-title>База даних</v-toolbar-title>
-<!--            <v-spacer></v-spacer>-->
-<!--            <v-switch-->
-<!--                    v-model="dark"-->
-<!--                    :label="`Dark mode`"-->
-<!--            ></v-switch>-->
-        </v-toolbar>
-    </div>
+    </nav>
 </template>
 
 <script>
@@ -58,7 +52,6 @@
         data() {
             return {
                 drawer: false,
-                dark: false,
                 primaryDrawer: {
                     model: false,
                     type: 'temporary',
@@ -67,7 +60,7 @@
                     mini: false
                 },
                 footer: {
-                    inset: false
+                    inset: true
                 },
                 items: [
                     {title: 'Працівники', path: "/workers"},
@@ -82,7 +75,7 @@
         },
         methods: {
             go(path) {
-                this.$router.push(path);
+                this.$router.push(path)
             }
         }
     }

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <workers-dialog></workers-dialog>
         <workers-table></workers-table>
+        <workers-dialog></workers-dialog>
         <snackbar></snackbar>
     </div>
 </template>

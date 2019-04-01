@@ -1,16 +1,7 @@
 <template>
     <div>
-        <v-toolbar color="white" app>
-            <v-toolbar-title>Ракети</v-toolbar-title>
-            <v-divider
-                    class="mx-2"
-                    inset
-                    vertical
-            ></v-divider>
-            <v-spacer></v-spacer>
-            <rockets-dialog></rockets-dialog>
-        </v-toolbar>
         <rockets-table></rockets-table>
+        <rockets-dialog></rockets-dialog>
         <snackbar></snackbar>
     </div>
 </template>
