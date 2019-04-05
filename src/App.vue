@@ -14,6 +14,8 @@
     export default {
         name: 'app',
         components: {Navigation},
+        mounted() {
+        }
     }
 </script>
 

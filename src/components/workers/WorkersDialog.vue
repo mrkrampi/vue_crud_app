@@ -23,7 +23,6 @@
                             <v-text-field v-model="worker.lastName" label="Прізвище"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md6>
-                            <!--                            <birthday-picker></birthday-picker>-->
                             <v-text-field v-model="worker.birthday" label="Дата народження"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md6>
@@ -62,15 +61,11 @@
 </template>
 
 <script>
-
-
     import {EventBus} from "@/event-bus";
-    // import BirthdayPicker from "@/components/others/BirthdayPicker";
     import axios from "axios";
 
     export default {
         name: "WorkersDialog",
-        components: {/*BirthdayPicker*/},
         data() {
             return {
                 categories: [],
@@ -98,14 +93,6 @@
         computed: {
             formTitle() {
                 return this.worker.id ? "Редагування" : "Додавання";
-            }
-        },
-        watch: {
-            dialog(val) {
-                if (!val) {
-                    this.worker = {};
-                    this.close();
-                }
             }
         },
         methods: {
@@ -162,7 +149,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

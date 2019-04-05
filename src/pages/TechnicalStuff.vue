@@ -16,7 +16,3 @@
         components: {Snackbar, TechnicalStuffTable, TechnicalStuffDialog}
     }
 </script>
-
-<style scoped>
-
-</style>

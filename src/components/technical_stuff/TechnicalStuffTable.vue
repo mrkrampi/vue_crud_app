@@ -5,6 +5,7 @@
             :pagination.sync="pagination"
             class="elevation-10"
     >
+        <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:items="props">
             <td>{{ props.item.firstName + ' ' + props.item.lastName }}</td>
             <td class="text-xs-left">{{ props.item.address }}</td>
@@ -27,6 +28,7 @@
                 </v-icon>
             </td>
         </template>
+        <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:no-data>
         </template>
     </v-data-table>
@@ -49,6 +51,7 @@
                     {text: 'Посада', value: 'position', sortable: false},
                     {text: 'Дії', value: 'name', sortable: false}
                 ],
+                loading: true,
                 pagination: {
                     rowsPerPage: 10
                 },
@@ -65,10 +68,10 @@
                         EventBus.$emit("call-snackbar", "Запис видалено");
                         const index = this.technicalStuff.indexOf(tech);
                         this.technicalStuff.splice(index, 1);
-                    });
+                    }).finally(() => this.loading = false);
             }
         },
-        created() {
+        mounted() {
             axios.get("api/technical_stuff")
                 .then(res => {
                     this.technicalStuff = res.data;
@@ -78,9 +81,10 @@
 
                         return aFullName > bFullName ? 1 : -1;
                     });
-                });
-        },
-        mounted() {
+                })
+                .catch(() => console.log("Сервер недоступний"))
+                .finally(() => this.loading = false);
+
             EventBus.$on("edit-tech", (tech) => {
                 let index = getIndex(this.technicalStuff, tech.id);
                 this.technicalStuff.splice(index, 1, tech);
@@ -92,7 +96,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

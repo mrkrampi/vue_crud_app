@@ -33,7 +33,6 @@
                 <v-list-tile
                         v-for="item in items"
                         :key="item.title"
-
                         @click="go(item.path)"
                 >
                     <v-list-tile-content>
@@ -57,19 +56,18 @@
                     type: 'temporary',
                     clipped: true,
                     floating: true,
-                    mini: false
                 },
                 footer: {
                     inset: true
                 },
                 items: [
-                    {title: 'Працівники', path: "/workers"},
-                    {title: 'Технічні працівники', path: "/tech"},
-                    {title: 'Літаки', path: "/planes"},
-                    {title: 'Ракети', path: "/rockets"},
-                    {title: 'Гелікоптери', path: "/helicopters"},
-                    {title: 'Планери', path: "/gliders"},
-                    {title: 'Дельтаплани', path: "/hand_dliders"},
+                    {title: 'Працівники', path: "/workers", role: ["admin", "hr"]},
+                    {title: 'Технічні працівники', path: "/tech", role: ["admin", "hr"]},
+                    {title: 'Літаки', path: "/planes", role: ["admin", "tech"]},
+                    {title: 'Ракети', path: "/rockets", role: ["admin", "tech"]},
+                    {title: 'Гелікоптери', path: "/helicopters", role: ["admin", "tech"]},
+                    {title: 'Планери', path: "/gliders", role: ["admin", "tech"]},
+                    {title: 'Дельтаплани', path: "/hand_dliders", role: ["admin", "tech"]},
                 ]
             }
         },
@@ -80,7 +78,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

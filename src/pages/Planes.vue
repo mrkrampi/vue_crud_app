@@ -10,12 +10,9 @@
     import PlanesTable from "@/components/planes/PlanesTable";
     import Snackbar from "@/components/others/Snackbar";
     import PlanesDialog from "@/components/planes/PlanesDialog";
+
     export default {
         name: "Planes",
         components: {PlanesDialog, Snackbar, PlanesTable}
     }
 </script>
-
-<style scoped>
-
-</style>

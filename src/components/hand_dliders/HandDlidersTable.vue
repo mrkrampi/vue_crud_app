@@ -74,10 +74,11 @@
         mounted() {
             axios.get("api/hand_dliders")
                 .then(res => {
-                    this.loading = false;
                     this.handDliders = res.data;
                     this.handDliders.sort((a, b) => a.name > b.name ? 1 : -1);
-                });
+                })
+                .catch(() => console.log("Сервер недоступний"))
+                .finally(() => this.loading = false);
 
             EventBus.$on("edit-handDlider", (handDlider) => {
                 let index = getIndex(this.handDliders, handDlider.id);
@@ -91,7 +92,3 @@
 
     }
 </script>
-
-<style scoped>
-
-</style>

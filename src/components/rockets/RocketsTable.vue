@@ -76,10 +76,11 @@
         mounted() {
             axios.get("api/rockets")
                 .then(res => {
-                    this.loading = false;
                     this.rockets = res.data;
                     this.rockets.sort((a, b) => a.name > b.name ? 1 : -1);
-                });
+                })
+                .catch(() => console.log("Сервер недоступний"))
+                .finally(() => this.loading = false);
 
             EventBus.$on("edit-rocket", (rocket) => {
                 let index = getIndex(this.rockets, rocket.id);
@@ -92,7 +93,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

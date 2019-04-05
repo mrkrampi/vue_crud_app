@@ -16,7 +16,3 @@
         components: {Snackbar, GlidersDialog, GlidersTable}
     }
 </script>
-
-<style scoped>
-
-</style>

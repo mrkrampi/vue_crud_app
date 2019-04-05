@@ -79,10 +79,11 @@
         mounted() {
             axios.get("api/gliders")
                 .then(res => {
-                    this.loading = false;
                     this.gliders = res.data;
                     this.gliders.sort((a, b) => a.name > b.name ? 1 : -1);
-                });
+                })
+                .catch(() => console.log("Сервер недоступний"))
+                .finally(() => this.loading = false);
 
             EventBus.$on("edit-glider", (glider) => {
                 let index = getIndex(this.gliders, glider.id);
@@ -95,7 +96,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

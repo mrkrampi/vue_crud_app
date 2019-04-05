@@ -37,7 +37,7 @@
 </template>
 
 <script>
-    import axios from 'axios/index';
+    import axios from 'axios';
     import {EventBus} from "@/event-bus";
     import getIndex from "@/utils/utils";
 
@@ -78,10 +78,11 @@
         mounted() {
             axios.get("api/helicopters")
                 .then(res => {
-                    this.loading = false;
                     this.helicopters = res.data;
                     this.helicopters.sort((a, b) => a.name > b.name ? 1 : -1);
-                });
+                })
+                .catch(() => console.log("Сервер недоступний"))
+                .finally(() => this.loading = false);
 
             EventBus.$on("edit-helicopter", (helicopter) => {
                 let index = getIndex(this.helicopters, helicopter.id);
@@ -94,7 +95,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -5,6 +5,7 @@
             :pagination.sync="pagination"
             class="elevation-10"
     >
+        <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:items="props">
             <td>{{ props.item.firstName + ' ' + props.item.lastName }}</td>
             <td class="text-xs-left">{{ props.item.address }}</td>
@@ -27,6 +28,7 @@
                 </v-icon>
             </td>
         </template>
+        <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:no-data>
         </template>
     </v-data-table>
@@ -41,18 +43,18 @@
         name: "WorkersTable",
         data() {
             return {
-                dialog: false,
                 headers: [
                     {text: 'ПІБ', value: 'name', sortable: false},
                     {text: 'Адреса', value: 'address', sortable: false},
                     {text: 'Номер телефону', value: 'phoneNumber', sortable: false},
                     {text: 'Зарплата', value: 'Salary', sortable: false},
                     {text: 'Посада', value: 'position', sortable: false},
-                    {text: 'Дії', value: 'name', sortable: false}
+                    {text: 'Дії', value: 'action', sortable: false}
                 ],
                 pagination: {
                     rowsPerPage: 10
                 },
+                loading: true,
                 workers: []
             }
         },
@@ -69,19 +71,20 @@
                     });
             }
         },
-        created() {
+        mounted() {
             axios.get("api/workers")
                 .then(res => {
                     this.workers = res.data;
+
                     this.workers.sort((a, b) => {
                         let aFullName = a.firstName + " " + a.lastName;
                         let bFullName = b.firstName + " " + b.lastName;
-
                         return aFullName > bFullName ? 1 : -1;
                     });
-                });
-        },
-        mounted() {
+                })
+                .catch(() => console.log("Сервер недоступний"))
+                .finally(() => this.loading = false);
+
             EventBus.$on("edit-worker", (worker) => {
                 let index = getIndex(this.workers, worker.id);
                 this.workers.splice(index, 1, worker);
@@ -93,7 +96,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>
