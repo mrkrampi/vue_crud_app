@@ -104,7 +104,7 @@
                         EventBus.$emit("call-snackbar", "Запис відредаговано");
                         EventBus.$emit("edit-glider", glider)
                     })
-                        .catch(err => alert(err));
+                        .catch(err => console.log(err));
                 } else {
                     axios({
                         method: "POST",
@@ -118,7 +118,7 @@
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис додано");
                         EventBus.$emit("add-glider", glider);
-                    }).catch(err => alert(err));
+                    }).catch(err => console.log(err));
                 }
             },
         },

@@ -101,7 +101,7 @@
                         EventBus.$emit("call-snackbar", "Запис відредаговано");
                         EventBus.$emit("edit-rocket", rocket)
                     })
-                        .catch(err => alert(err));
+                        .catch(err => console.log(err));
                 } else {
                     axios({
                         method: "POST",
@@ -115,7 +115,7 @@
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис додано");
                         EventBus.$emit("add-rocket", rocket);
-                    }).catch(err => alert(err));
+                    }).catch(err => console.log(err));
                 }
             },
         },
@@ -123,7 +123,7 @@
             axios.get("api/categories")
                 .then(res => {
                     res.data.forEach(i => this.categories.push(i));
-                }).catch(err => alert(err));
+                }).catch(err => console.log(err));
 
             EventBus.$on("rockets-edit-dialog", (rocket) => {
                 this.rocket = Object.assign({}, rocket);

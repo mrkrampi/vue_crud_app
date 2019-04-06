@@ -117,7 +117,7 @@
                         EventBus.$emit("call-snackbar", "Запис відредаговано");
                         EventBus.$emit("edit-worker", worker)
                     })
-                        .catch(err => alert(err));
+                        .catch(err => console.log(err));
                 } else {
                     axios({
                         method: "POST",
@@ -131,7 +131,7 @@
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис додано");
                         EventBus.$emit("add-worker", worker);
-                    }).catch(err => alert(err));
+                    }).catch(err => console.log(err));
                 }
             },
         },
@@ -139,8 +139,7 @@
             axios.get("api/category_of_workers")
                 .then(res => {
                     res.data.forEach(i => this.categories.push(i));
-                    // alert(JSON.stringify(this.categories));
-                }).catch(err => alert(err));
+                }).catch(err => console.log(err));
 
             EventBus.$on("workers-edit-dialog", (worker) => {
                 this.worker = Object.assign({}, worker);

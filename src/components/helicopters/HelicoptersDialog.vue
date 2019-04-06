@@ -124,7 +124,7 @@
                         EventBus.$emit("call-snackbar", "Запис відредаговано");
                         EventBus.$emit("edit-helicopter", helicopter)
                     })
-                        .catch(err => alert(err));
+                        .catch(err => console.log(err));
                 } else {
                     axios({
                         method: "POST",
@@ -138,7 +138,7 @@
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис додано");
                         EventBus.$emit("add-helicopter", helicopter);
-                    }).catch(err => alert(err));
+                    }).catch(err => console.log(err));
                 }
             },
         },
