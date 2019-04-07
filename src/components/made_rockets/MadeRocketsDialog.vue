@@ -15,8 +15,8 @@
                     <v-layout wrap>
                         <v-flex xs12 sm6 md12>
                             <v-select
-                                    :items="planes"
-                                    v-model="product.plane"
+                                    :items="rockets"
+                                    v-model="product.rocket"
                                     item-text="name"
                                     item-value="id"
                                     return-object
@@ -54,23 +54,23 @@
     import {EventBus} from "@/event-bus";
 
     export default {
-        name: "MadePlanesDialog",
+        name: "MadeRocketsDialog",
         data() {
             return {
                 dialog: false,
                 product: {
-                    "plane": null,
+                    "rocket": null,
                     "cycleOfWork": null,
                     "dateOfManufacture": null,
-                    "ready": true
+                    "ready": false
                 },
                 defaultProduct: {
-                    "plane": null,
+                    "rocket": null,
                     "cycleOfWork": null,
                     "dateOfManufacture": null,
-                    "ready": true
+                    "ready": false
                 },
-                planes: [],
+                rockets: [],
                 cycleOfWork: [],
             }
         },
@@ -97,7 +97,7 @@
                 console.log(this.product);
                 axios({
                     method: this.product.id ? "PUT" : "POST",
-                    url: "api/made_planes/" + (this.product.id || ""),
+                    url: "api/made_rockets/" + (this.product.id || ""),
                     data: this.product,
                     headers: {
                         'Content-Type': 'application/json'
@@ -110,9 +110,9 @@
             }
         },
         mounted() {
-            axios.get("api/planes")
+            axios.get("api/rockets")
                 .then(res => {
-                    res.data.forEach(i => this.planes.push(i));
+                    res.data.forEach(i => this.rockets.push(i));
                 }).catch(err => console.log(err));
 
             axios.get("api/cycle_of_works")
@@ -127,3 +127,7 @@
         }
     }
 </script>
+
+<style scoped>
+
+</style>

@@ -8,7 +8,7 @@
     >
         <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:items="props">
-            <td>{{ props.item.plane.name }}</td>
+            <td>{{ props.item.rocket.name }}</td>
             <td class="text-xs-left">{{ props.item.cycleOfWork.name }}</td>
             <td class="text-xs-left">{{ props.item.dateOfManufacture || "Йде виготовлення" }}</td>
             <td class="text-xs-left">{{ props.item.ready ? "Виготовлено" : "Йде виготовлення" }}</td>
@@ -41,11 +41,11 @@
     import getIndex from "@/utils/utils";
 
     export default {
-        name: "MadePlanesTable",
+        name: "MadeRocketsTable",
         data() {
             return  {
                 headers: [
-                    {text: 'Назва літака', value: 'name', sortable: false},
+                    {text: 'Назва ракети', value: 'name', sortable: false},
                     {text: 'Цикл робіт', value: 'cycleOfWork', sortable: false},
                     {text: 'Дата виготовлення', value: 'dateOfManufacture', sortable: false},
                     {text: 'Готовність', value: 'ready', sortable: false},
@@ -60,7 +60,7 @@
         },
         methods: {
             deleteProduct(product) {
-                axios.delete("api/made_planes/" + product.id)
+                axios.delete("api/made_rockets/" + product.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
                         const index = this.products.indexOf(product);
@@ -72,10 +72,10 @@
             }
         },
         mounted() {
-            axios.get("api/made_planes")
+            axios.get("api/made_rockets")
                 .then(res => {
                     this.products = res.data;
-                    this.products.sort((a, b) => a.plane.name > b.plane.name ? 1 : -1);
+                    this.products.sort((a, b) => a.rocket.name > b.rocket.name ? 1 : -1);
                 })
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
@@ -91,3 +91,7 @@
         }
     }
 </script>
+
+<style scoped>
+
+</style>

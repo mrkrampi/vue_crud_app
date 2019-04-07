@@ -69,6 +69,7 @@
                     {title: 'Планери', path: "/gliders", role: ["admin", "tech"]},
                     {title: 'Дельтаплани', path: "/hand_dliders", role: ["admin", "tech"]},
                     {title: 'Виготовлення літаків', path: "/made_planes", role: ["admin", "tech"]},
+                    {title: 'Виготовлення ракет', path: "/made_rockets", role: ["admin", "tech"]},
                 ]
             }
         },
