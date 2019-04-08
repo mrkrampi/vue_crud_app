@@ -10,6 +10,7 @@ import Gliders from "@/pages/Gliders";
 import HandDliders from "@/pages/HandDliders";
 import MadePlanes from "@/pages/MadePlanes";
 import MadeRockets from "@/pages/MadeRockets";
+import MadeHelicopters from "@/pages/MadeHelicopters";
 
 
 Vue.use(VueRouter);
@@ -25,6 +26,7 @@ const routes = [
     {path: '/hand_dliders', component: HandDliders},
     {path: '/made_planes', component: MadePlanes},
     {path: '/made_rockets', component: MadeRockets},
+    {path: '/made_helicopters', component: MadeHelicopters},
     {path: '*', component: HelloWorld}
 ];
 

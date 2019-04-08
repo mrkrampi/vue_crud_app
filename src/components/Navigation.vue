@@ -70,6 +70,7 @@
                     {title: 'Дельтаплани', path: "/hand_dliders", role: ["admin", "tech"]},
                     {title: 'Виготовлення літаків', path: "/made_planes", role: ["admin", "tech"]},
                     {title: 'Виготовлення ракет', path: "/made_rockets", role: ["admin", "tech"]},
+                    {title: 'Виготовлення гелікоптерів', path: "/made_helicopters", role: ["admin", "tech"]},
                 ]
             }
         },

@@ -8,7 +8,7 @@
     >
         <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:items="props">
-            <td>{{ props.item.rocket.name }}</td>
+            <td>{{ props.item.helicopter.name }}</td>
             <td class="text-xs-left">{{ props.item.cycleOfWork.name }}</td>
             <td class="text-xs-left">{{ props.item.dateOfManufacture || "Йде виготовлення" }}</td>
             <td class="text-xs-left">{{ props.item.ready ? "Виготовлено" : "Йде виготовлення" }}</td>
@@ -40,11 +40,11 @@
     import getIndex from "@/utils/utils";
 
     export default {
-        name: "MadeRocketsTable",
+        name: "MadeHelicoptersTable",
         data() {
             return {
                 headers: [
-                    {text: 'Назва ракети', value: 'name', sortable: false},
+                    {text: 'Назва гелікоптера', value: 'name', sortable: false},
                     {text: 'Цикл робіт', value: 'cycleOfWork', sortable: false},
                     {text: 'Дата виготовлення', value: 'dateOfManufacture', sortable: false},
                     {text: 'Готовність', value: 'ready', sortable: false},
@@ -59,7 +59,7 @@
         },
         methods: {
             deleteProduct(product) {
-                axios.delete("api/made_rockets/" + product.id)
+                axios.delete("api/made_helicopters/" + product.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
                         const index = this.products.indexOf(product);
@@ -71,10 +71,10 @@
             }
         },
         mounted() {
-            axios.get("api/made_rockets")
+            axios.get("api/made_helicopters")
                 .then(res => {
                     this.products = res.data;
-                    this.products.sort((a, b) => a.rocket.name > b.rocket.name ? 1 : -1);
+                    this.products.sort((a, b) => a.helicopter.name > b.helicopter.name ? 1 : -1);
                 })
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
