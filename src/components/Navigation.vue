@@ -67,10 +67,11 @@
                     {title: 'Ракети', path: "/rockets", role: ["admin", "tech"]},
                     {title: 'Гелікоптери', path: "/helicopters", role: ["admin", "tech"]},
                     {title: 'Планери', path: "/gliders", role: ["admin", "tech"]},
-                    {title: 'Дельтаплани', path: "/hand_dliders", role: ["admin", "tech"]},
+                    {title: 'Дельтаплани', path: "/hang_gliders", role: ["admin", "tech"]},
                     {title: 'Виготовлення літаків', path: "/made_planes", role: ["admin", "tech"]},
                     {title: 'Виготовлення ракет', path: "/made_rockets", role: ["admin", "tech"]},
                     {title: 'Виготовлення гелікоптерів', path: "/made_helicopters", role: ["admin", "tech"]},
+                    {title: 'Виготовлення планерів', path: "/made_gliders", role: ["admin", "tech"]},
                 ]
             }
         },

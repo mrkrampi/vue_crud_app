@@ -15,8 +15,8 @@
                     <v-layout wrap>
                         <v-flex xs12 sm6 md12>
                             <v-select
-                                    :items="rockets"
-                                    v-model="product.rocket"
+                                    :items="gliders"
+                                    v-model="product.glider"
                                     item-text="name"
                                     item-value="id"
                                     return-object
@@ -54,23 +54,23 @@
     import {EventBus} from "@/event-bus";
 
     export default {
-        name: "MadeRocketsDialog",
+        name: "MadeGlidersDialog",
         data() {
             return {
                 dialog: false,
                 product: {
-                    "rocket": null,
+                    "glider": null,
                     "cycleOfWork": null,
                     "dateOfManufacture": null,
                     "ready": false
                 },
                 defaultProduct: {
-                    "rocket": null,
+                    "glider": null,
                     "cycleOfWork": null,
                     "dateOfManufacture": null,
                     "ready": false
                 },
-                rockets: [],
+                gliders: [],
                 cycleOfWork: [],
             }
         },
@@ -94,9 +94,10 @@
                 }, 300)
             },
             save() {
+                console.log(this.product);
                 axios({
                     method: this.product.id ? "PUT" : "POST",
-                    url: "api/made_rockets/" + (this.product.id || ""),
+                    url: "api/made_gliders/" + (this.product.id || ""),
                     data: this.product,
                     headers: {
                         'Content-Type': 'application/json'
@@ -109,14 +110,14 @@
             }
         },
         mounted() {
-            axios.get("api/rockets")
+            axios.get("api/gliders")
                 .then(res => {
-                    res.data.forEach(i => this.rockets.push(i));
+                    this.gliders = res.data;
                 }).catch(err => console.log(err));
 
             axios.get("api/cycle_of_works")
                 .then(res => {
-                    res.data.forEach(i => this.cycleOfWork.push(i));
+                    this.cycleOfWork = res.data;
                 }).catch(err => console.log(err));
 
             EventBus.$on("product-edit-dialog", (product) => {
@@ -126,7 +127,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>
