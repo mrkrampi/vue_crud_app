@@ -94,7 +94,6 @@
                 }, 300)
             },
             save() {
-                console.log(this.product);
                 axios({
                     method: this.product.id ? "PUT" : "POST",
                     url: "api/made_gliders/" + (this.product.id || ""),

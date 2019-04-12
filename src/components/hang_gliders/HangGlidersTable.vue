@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-data-table
             :headers="headers"
-            :items="handDliders"
+            :items="hangGliders"
             :loading="loading"
             :pagination.sync="pagination"
             class="elevation-10"
@@ -17,13 +17,13 @@
                 <v-icon
                         small
                         class="mr-2"
-                        @click="editHandDlider(props.item)"
+                        @click="editHangGlider(props.item)"
                 >
                     edit
                 </v-icon>
                 <v-icon
                         small
-                        @click="deleteHandDlider(props.item)"
+                        @click="deleteHangGlider(props.item)"
                 >
                     delete
                 </v-icon>
@@ -41,7 +41,7 @@
     import getIndex from "@/utils/utils";
 
     export default {
-        name: "HandDlidersTable",
+        name: "HangGlidersTable",
         data() {
             return {
                 headers: [
@@ -51,7 +51,7 @@
                     {text: 'Максимальна швидкість', value: 'maxSpeed', sortable: false},
                     {text: 'Дії', value: 'name', sortable: false}
                 ],
-                handDliders: [],
+                hangGliders: [],
                 loading: true,
                 pagination: {
                     rowsPerPage: 10
@@ -59,34 +59,34 @@
             }
         },
         methods: {
-            deleteHandDlider(handDlider) {
-                axios.delete("api/hand_dliders/" + handDlider.id)
+            deleteHangGlider(hangGlider) {
+                axios.delete("api/hang_gliders/" + hangGlider.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
-                        const index = this.handDliders.indexOf(handDlider);
-                        this.handDliders.splice(index, 1);
+                        const index = this.hangGliders.indexOf(hangGlider);
+                        this.hangGliders.splice(index, 1);
                     });
             },
-            editHandDlider(handDlider) {
-                EventBus.$emit("handDlider-edit-dialog", handDlider)
+            editHangGlider(hangGlider) {
+                EventBus.$emit("hangGlider-edit-dialog", hangGlider)
             }
         },
         mounted() {
-            axios.get("api/hand_dliders")
+            axios.get("api/hang_gliders")
                 .then(res => {
-                    this.handDliders = res.data;
-                    this.handDliders.sort((a, b) => a.name > b.name ? 1 : -1);
+                    this.hangGliders = res.data;
+                    this.hangGliders.sort((a, b) => a.name > b.name ? 1 : -1);
                 })
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-handDlider", (handDlider) => {
-                let index = getIndex(this.handDliders, handDlider.id);
-                this.handDliders.splice(index, 1, handDlider);
+            EventBus.$on("edit-hangGlider", (hangGlider) => {
+                let index = getIndex(this.hangGliders, hangGlider.id);
+                this.hangGliders.splice(index, 1, hangGlider);
             });
 
-            EventBus.$on("add-handDlider", (handDlider) => {
-                this.handDliders.push(handDlider);
+            EventBus.$on("add-hangGlider", (hangGlider) => {
+                this.hangGliders.push(hangGlider);
             });
         }
 

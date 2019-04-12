@@ -14,16 +14,16 @@
                 <v-container grid-list-md>
                     <v-layout wrap>
                         <v-flex xs12 sm6 md12>
-                            <v-text-field v-model="handDlider.name" label="Назва"></v-text-field>
+                            <v-text-field v-model="hangGlider.name" label="Назва"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="handDlider.wingspan" label="Кількість сидінь"></v-text-field>
+                            <v-text-field v-model="hangGlider.wingspan" label="Кількість сидінь"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="handDlider.weight" label="Довжина"></v-text-field>
+                            <v-text-field v-model="hangGlider.weight" label="Довжина"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm6 md4>
-                            <v-text-field v-model="handDlider.maxSpeed" label="Висота"></v-text-field>
+                            <v-text-field v-model="hangGlider.maxSpeed" label="Висота"></v-text-field>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -43,17 +43,17 @@
     import {EventBus} from "@/event-bus";
 
     export default {
-        name: "HandDlidersDialog",
+        name: "HangGlidersDialog",
         data() {
             return {
                 dialog: false,
-                handDlider: {
+                hangGlider: {
                     name: "",
                     wingspan: 0,
                     weight: 0,
                     maxSpeed: 0
                 },
-                defaultHandDlider: {
+                defaultHangGlider: {
                     name: "",
                     wingspan: 0,
                     weight: 0,
@@ -63,52 +63,52 @@
         },
         computed: {
             formTitle() {
-                return this.handDlider.id ? "Редагування" : "Додавання";
+                return this.hangGlider.id ? "Редагування" : "Додавання";
             }
         },
         methods: {
             close() {
                 this.dialog = false;
                 setTimeout(() => {
-                    this.handDlider = Object.assign({}, this.defaultHandDlider);
+                    this.hangGlider = Object.assign({}, this.defaultHangGlider);
                 }, 300)
             },
             save() {
-                if (this.handDlider.id) {
+                if (this.hangGlider.id) {
                     axios({
                         method: "PUT",
-                        url: "api/hand_dliders/" + this.handDlider.id,
-                        data: this.handDlider,
+                        url: "api/hang_gliders/" + this.hangGlider.id,
+                        data: this.hangGlider,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }).then(() => {
-                        const handDlider = Object.assign({}, this.handDlider);
+                        const hangGlider = Object.assign({}, this.hangGlider);
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-handDlider", handDlider)
+                        EventBus.$emit("edit-hangGlider", hangGlider)
                     })
                         .catch(err => console.log(err));
                 } else {
                     axios({
                         method: "POST",
-                        url: "api/hand_dliders/",
-                        data: this.handDlider,
+                        url: "api/hang_gliders/",
+                        data: this.hangGlider,
                         headers: {
                             'Content-Type': 'application/json'
                         }
                     }).then(() => {
-                        const handDlider = Object.assign({}, this.handDlider);
+                        const hangGlider = Object.assign({}, this.hangGlider);
                         this.close();
                         EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-handDlider", handDlider);
+                        EventBus.$emit("add-hangGlider", hangGlider);
                     }).catch(err => console.log(err));
                 }
             },
         },
         mounted() {
-            EventBus.$on("handDlider-edit-dialog", (handDlider) => {
-                this.handDlider = Object.assign({}, handDlider);
+            EventBus.$on("hangGlider-edit-dialog", (hangGlider) => {
+                this.hangGlider = Object.assign({}, hangGlider);
                 this.dialog = true;
             });
         }

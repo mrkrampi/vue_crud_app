@@ -7,11 +7,12 @@ import Planes from "@/pages/Planes";
 import Helicopters from "@/pages/Helicopters";
 import Rockets from "@/pages/Rockets";
 import Gliders from "@/pages/Gliders";
-import HandDliders from "@/pages/HandDliders";
+import HangGliders from "@/pages/HangGliders";
 import MadePlanes from "@/pages/MadePlanes";
 import MadeRockets from "@/pages/MadeRockets";
 import MadeHelicopters from "@/pages/MadeHelicopters";
 import MadeGliders from "@/pages/MadeGliders";
+import MadeHangGliders from "@/pages/MadeHangGliders";
 
 
 Vue.use(VueRouter);
@@ -24,11 +25,12 @@ const routes = [
     {path: '/helicopters', component: Helicopters},
     {path: '/rockets', component: Rockets},
     {path: '/gliders', component: Gliders},
-    {path: '/hang_gliders', component: HandDliders},
+    {path: '/hang_gliders', component: HangGliders},
     {path: '/made_planes', component: MadePlanes},
     {path: '/made_rockets', component: MadeRockets},
     {path: '/made_helicopters', component: MadeHelicopters},
     {path: '/made_gliders', component: MadeGliders},
+    {path: '/made_hang_gliders', component: MadeHangGliders},
     {path: '*', component: HelloWorld}
 ];
 
