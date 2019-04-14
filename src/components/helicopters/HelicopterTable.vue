@@ -90,7 +90,7 @@
             });
 
             EventBus.$on("add-helicopter", (helicopter) => {
-                this.workers.push(helicopter);
+                this.helicopters.push(helicopter);
             });
         }
     }

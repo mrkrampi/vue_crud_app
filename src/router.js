@@ -13,6 +13,7 @@ import MadeRockets from "@/pages/MadeRockets";
 import MadeHelicopters from "@/pages/MadeHelicopters";
 import MadeGliders from "@/pages/MadeGliders";
 import MadeHangGliders from "@/pages/MadeHangGliders";
+import Enterprise from "@/pages/Enterprise";
 
 
 Vue.use(VueRouter);
@@ -31,6 +32,7 @@ const routes = [
     {path: '/made_helicopters', component: MadeHelicopters},
     {path: '/made_gliders', component: MadeGliders},
     {path: '/made_hang_gliders', component: MadeHangGliders},
+    {path: '/enterprises', component: Enterprise},
     {path: '*', component: HelloWorld}
 ];
 

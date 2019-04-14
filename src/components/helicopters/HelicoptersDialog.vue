@@ -102,6 +102,13 @@
                 return this.helicopter.id ? "Редагування" : "Додавання";
             }
         },
+        watch: {
+            dialog(newValue) {
+                if (!newValue) {
+                    this.close();
+                }
+            }
+        },
         methods: {
             close() {
                 this.dialog = false;
