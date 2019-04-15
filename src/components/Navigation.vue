@@ -74,6 +74,7 @@
                     {title: 'Виготовлення гелікоптерів', path: "/made_helicopters", role: ["admin", "tech"]},
                     {title: 'Виготовлення планерів', path: "/made_gliders", role: ["admin", "tech"]},
                     {title: 'Виготовлення дельтапланів', path: "/made_hang_gliders", role: ["admin", "tech"]},
+                    {title: 'Цехи', path: "/departments", role: ["admin", "tech"]},
                 ]
             }
         },

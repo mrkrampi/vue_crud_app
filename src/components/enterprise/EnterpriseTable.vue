@@ -38,7 +38,6 @@
 <script>
     import axios from 'axios';
     import {EventBus} from "@/event-bus";
-    import getIndex from "@/utils/utils";
 
     export default {
         name: "EnterpriseTable",
@@ -64,7 +63,7 @@
                 axios.delete("api/enterprise/" + enterprise.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
-                        const index = this.enterprises.indexOf(enterprise);
+                        let index = this.enterprises.findIndex(x => x.id === enterprise.id);
                         this.enterprises.splice(index, 1);
                     });
             },
@@ -82,7 +81,7 @@
                 .finally(() => this.loading = false);
 
             EventBus.$on("edit-enterprise", (enterprise) => {
-                let index = getIndex(this.enterprises, enterprise.id);
+                let index = this.enterprises.findIndex(x => x.id === enterprise.id);
                 this.enterprises.splice(index, 1, enterprise);
             });
 
