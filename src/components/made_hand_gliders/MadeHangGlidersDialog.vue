@@ -126,7 +126,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-</style>

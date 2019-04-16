@@ -16,7 +16,3 @@
         components: {Snackbar, DepartmentsDialog, DepartmentsTable}
     }
 </script>
-
-<style scoped>
-
-</style>

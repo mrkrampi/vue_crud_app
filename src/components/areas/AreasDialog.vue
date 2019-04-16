@@ -14,26 +14,26 @@
                 <v-container grid-list-md>
                     <v-layout wrap>
                         <v-flex xs12 sm12 md12>
-                            <v-text-field v-model="department.address" label="Адрес цеху"></v-text-field>
+                            <v-text-field v-model="area.name" label="Назва ділянки"></v-text-field>
                         </v-flex>
                         <v-flex xs12 sm12 md12>
                             <v-select
                                     :items="managers"
-                                    v-model="department.technicalStuff"
+                                    v-model="area.technicalStuff"
                                     item-text="name"
                                     item-value="id"
                                     return-object
-                                    label="Керівник цеху"
+                                    label="Начальник ділянки"
                             ></v-select>
                         </v-flex>
                         <v-flex xs12 sm12 md12>
                             <v-select
-                                    :items="enterprises"
-                                    v-model="department.enterprise"
-                                    item-text="name"
+                                    :items="departments"
+                                    v-model="area.department"
+                                    item-text="address"
                                     item-value="id"
                                     return-object
-                                    label="Підприємство"
+                                    label="Цех"
                             ></v-select>
                         </v-flex>
                     </v-layout>
@@ -51,30 +51,30 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
+    import  {EventBus} from "@/event-bus";
 
     export default {
-        name: "DepartmentsDialog",
+        name: "AreasDialog",
         data() {
             return {
                 dialog: false,
-                department: {
-                    "address": "",
+                area: {
+                    "name": "",
                     "technicalStuff": "",
-                    "enterprise": "",
+                    "department": "",
                 },
-                defaultDepartment: {
-                    "address": "",
+                defaultArea: {
+                    "name": "",
                     "technicalStuff": "",
-                    "enterprise": "",
+                    "department": "",
                 },
                 managers: [],
-                enterprises: []
+                departments: []
             }
         },
         computed: {
             formTitle() {
-                return this.department.id ? "Редагування" : "Додавання";
+                return this.area.id ? "Редагування" : "Додавання";
             }
         },
         watch: {
@@ -88,33 +88,33 @@
             close() {
                 this.dialog = false;
                 setTimeout(() => {
-                    this.department = Object.assign({}, this.defaultDepartment);
+                    this.area = Object.assign({}, this.defaultArea);
                 }, 300)
             },
             save() {
                 axios({
-                    method: this.department.id ? "PUT" : "POST",
-                    url: "api/departments/" + (this.department.id || ""),
-                    data: this.department,
+                    method: this.area.id ? "PUT" : "POST",
+                    url: "api/areas/" + (this.area.id || ""),
+                    data: this.area,
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.department.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.department.id ? "edit" : "add") + "-department", this.department)
+                    EventBus.$emit("call-snackbar", this.area.id ? "Запис відредаговано" : "Запис додано");
+                    EventBus.$emit((this.area.id ? "edit" : "add") + "-area", this.area)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("department-edit-dialog", (department) => {
-                this.department = Object.assign({}, department);
+            EventBus.$on("area-edit-dialog", (area) => {
+                this.area = Object.assign({}, area);
                 this.dialog = true;
             });
 
-            axios.get('api/enterprise')
-                .then(enterprises => {
-                    this.enterprises = enterprises.data;
+            axios.get('api/departments')
+                .then(departments => {
+                    this.departments = departments.data;
                 }).catch(error => console.log(error));
 
             axios.get('api/technical_stuff')
