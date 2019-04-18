@@ -16,6 +16,7 @@ import MadeHangGliders from "@/pages/MadeHangGliders";
 import Enterprise from "@/pages/Enterprise";
 import Departments from "@/pages/Departments";
 import Areas from "@/pages/Areas";
+import Categories from "@/pages/Categories";
 
 
 Vue.use(VueRouter);
@@ -37,6 +38,7 @@ const routes = [
     {path: '/enterprises', component: Enterprise},
     {path: '/departments', component: Departments},
     {path: '/areas', component: Areas},
+    {path: '/categories', component: Categories},
     {path: '*', component: HelloWorld}
 ];
 

@@ -76,6 +76,7 @@
                     {title: 'Виготовлення дельтапланів', path: "/made_hang_gliders", role: ["admin", "tech"]},
                     {title: 'Цехи', path: "/departments", role: ["admin", "tech"]},
                     {title: 'Ділянки', path: "/areas", role: ["admin", "tech"]},
+                    {title: 'Категорії', path: "/categories", role: ["admin", "tech"]},
                 ]
             }
         },
