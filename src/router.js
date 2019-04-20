@@ -17,6 +17,7 @@ import Enterprise from "@/pages/Enterprise";
 import Departments from "@/pages/Departments";
 import Areas from "@/pages/Areas";
 import Categories from "@/pages/Categories";
+import Brigades from "@/pages/Brigades";
 
 
 Vue.use(VueRouter);
@@ -39,6 +40,7 @@ const routes = [
     {path: '/departments', component: Departments},
     {path: '/areas', component: Areas},
     {path: '/categories', component: Categories},
+    {path: '/brigades', component: Brigades},
     {path: '*', component: HelloWorld}
 ];
 
