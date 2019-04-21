@@ -40,7 +40,6 @@
 <script>
     import axios from 'axios';
     import {EventBus} from "@/event-bus";
-    import getIndex from "@/utils/utils";
 
     export default {
         name: "PlanesTable",
@@ -87,7 +86,7 @@
                 .finally(() => this.loading = false);
 
             EventBus.$on("edit-plane", (plane) => {
-                let index = getIndex(this.planes, plane.id);
+                let index = this.planes.findIndex(x => x.id === plane.id);
                 this.planes.splice(index, 1, plane);
             });
 

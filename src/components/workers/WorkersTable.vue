@@ -37,7 +37,6 @@
 <script>
     import axios from 'axios'
     import {EventBus} from "@/event-bus";
-    import getIndex from "../../utils/utils.js"
 
     export default {
         name: "WorkersTable",
@@ -86,7 +85,7 @@
                 .finally(() => this.loading = false);
 
             EventBus.$on("edit-worker", (worker) => {
-                let index = getIndex(this.workers, worker.id);
+                let index = this.workers.findIndex(x => x.id === worker.id);
                 this.workers.splice(index, 1, worker);
             });
 

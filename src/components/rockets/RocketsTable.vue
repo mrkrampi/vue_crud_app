@@ -38,7 +38,6 @@
 <script>
     import axios from 'axios';
     import {EventBus} from "@/event-bus";
-    import getIndex from "@/utils/utils";
 
     export default {
         name: "RocketsTable",
@@ -83,7 +82,7 @@
                 .finally(() => this.loading = false);
 
             EventBus.$on("edit-rocket", (rocket) => {
-                let index = getIndex(this.rockets, rocket.id);
+                let index = this.rockets.findIndex(x => x.id === rocket.id);
                 this.rockets.splice(index, 1, rocket);
             });
 

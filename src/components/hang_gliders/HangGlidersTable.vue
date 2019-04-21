@@ -38,7 +38,6 @@
 <script>
     import axios from 'axios';
     import {EventBus} from "@/event-bus";
-    import getIndex from "@/utils/utils";
 
     export default {
         name: "HangGlidersTable",
@@ -63,7 +62,7 @@
                 axios.delete("api/hang_gliders/" + hangGlider.id)
                     .then(() => {
                         EventBus.$emit("call-snackbar", "Запис видалено");
-                        const index = this.hangGliders.indexOf(hangGlider);
+                        const index = this.hangGliders.findIndex(x => x.id === hangGlider.id);
                         this.hangGliders.splice(index, 1);
                     });
             },
@@ -81,7 +80,7 @@
                 .finally(() => this.loading = false);
 
             EventBus.$on("edit-hangGlider", (hangGlider) => {
-                let index = getIndex(this.hangGliders, hangGlider.id);
+                let index = this.hangGliders.findIndex(x => x.id === hangGlider.id);
                 this.hangGliders.splice(index, 1, hangGlider);
             });
 
