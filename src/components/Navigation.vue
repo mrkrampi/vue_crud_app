@@ -78,6 +78,7 @@
                     {title: 'Ділянки', path: "/areas", role: ["admin", "tech"]},
                     {title: 'Категорії', path: "/categories", role: ["admin", "tech"]},
                     {title: 'Бригади', path: "/brigades", role: ["admin", "tech"]},
+                    {title: 'Обладнання', path: "/equipments", role: ["admin", "tech"]},
                 ]
             }
         },
