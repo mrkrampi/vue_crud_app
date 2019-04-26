@@ -79,6 +79,7 @@
                     {title: 'Категорії', path: "/categories", role: ["admin", "tech"]},
                     {title: 'Бригади', path: "/brigades", role: ["admin", "tech"]},
                     {title: 'Обладнання', path: "/equipments", role: ["admin", "tech"]},
+                    {title: 'Типи тестів', path: "/type_of_tests", role: ["admin", "tech"]},
                 ]
             }
         },

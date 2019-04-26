@@ -19,6 +19,7 @@ import Areas from "@/pages/Areas";
 import Categories from "@/pages/Categories";
 import Brigades from "@/pages/Brigades";
 import Equipment from "@/pages/Equipment";
+import TypeOfTests from "@/pages/TypeOfTests";
 
 
 Vue.use(VueRouter);
@@ -43,6 +44,7 @@ const routes = [
     {path: '/categories', component: Categories},
     {path: '/brigades', component: Brigades},
     {path: '/equipments', component: Equipment},
+    {path: '/type_of_tests', component: TypeOfTests},
     {path: '*', component: HelloWorld}
 ];
 
