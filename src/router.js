@@ -20,6 +20,7 @@ import Categories from "@/pages/Categories";
 import Brigades from "@/pages/Brigades";
 import Equipment from "@/pages/Equipment";
 import TypeOfTests from "@/pages/TypeOfTests";
+import ProductsTests from "@/pages/ProductsTests";
 
 
 Vue.use(VueRouter);
@@ -45,6 +46,31 @@ const routes = [
     {path: '/brigades', component: Brigades},
     {path: '/equipments', component: Equipment},
     {path: '/type_of_tests', component: TypeOfTests},
+    {
+        path: '/gliders_tests',
+        component: ProductsTests,
+        props: {link: 'gliders_tests', nameForProduct: 'Назва планера'}
+    },
+    {
+        path: '/hang_gliders_tests',
+        component: ProductsTests,
+        props: {link: 'hang_gliders_tests', nameForProduct: 'Назва дельтаплана'}
+    },
+    {
+        path: '/helicopters_tests',
+        component: ProductsTests,
+        props: {link: 'helicopters_tests', nameForProduct: 'Назва гелікоптера'}
+    },
+    {
+        path: '/plane_tests',
+        component: ProductsTests,
+        props: {link: 'planes_tests', nameForProduct: 'Назва літака'}
+    },
+    {
+        path: '/rockets_tests',
+        component: ProductsTests,
+        props: {link: 'rockets_tests', nameForProduct: 'Назва ракети'}
+    },
     {path: '*', component: HelloWorld}
 ];
 

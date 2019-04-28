@@ -80,6 +80,11 @@
                     {title: 'Бригади', path: "/brigades", role: ["admin", "tech"]},
                     {title: 'Обладнання', path: "/equipments", role: ["admin", "tech"]},
                     {title: 'Типи тестів', path: "/type_of_tests", role: ["admin", "tech"]},
+                    {title: 'Тестування планерів', path: "/gliders_tests", role: ["admin", "tech"]},
+                    {title: 'Тестування дельтапланів', path: "/hang_gliders_tests", role: ["admin", "tech"]},
+                    {title: 'Тестування гелікоптерів', path: "/helicopters_tests", role: ["admin", "tech"]},
+                    {title: 'Тестування літаків', path: "/plane_tests", role: ["admin", "tech"]},
+                    {title: 'Тестування ракет', path: "/rockets_tests", role: ["admin", "tech"]},
                 ]
             }
         },
