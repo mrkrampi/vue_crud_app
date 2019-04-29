@@ -39,6 +39,11 @@
             EventBus.$on("call-snackbar", msg => {
                 this.text = msg;
                 this.snackbar = true;
+            });
+
+            this.$root.$on("call-snackbar", msg => {
+                this.text = msg;
+                this.snackbar = true;
             })
         }
     }
