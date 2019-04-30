@@ -37,7 +37,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "EnterpriseTable",
@@ -62,13 +61,13 @@
             deleteEnterprise(enterprise) {
                 axios.delete("api/enterprise/" + enterprise.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.enterprises.findIndex(x => x.id === enterprise.id);
                         this.enterprises.splice(index, 1);
                     });
             },
             editEnterprise(enterprise) {
-                EventBus.$emit("enterprise-edit-dialog", enterprise)
+                this.$root.$emit("enterprise-edit-dialog", enterprise)
             }
         },
         mounted() {
@@ -80,12 +79,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-enterprise", (enterprise) => {
+            this.$root.$on("edit-enterprise", (enterprise) => {
                 let index = this.enterprises.findIndex(x => x.id === enterprise.id);
                 this.enterprises.splice(index, 1, enterprise);
             });
 
-            EventBus.$on("add-enterprise", (enterprise) => {
+            this.$root.$on("add-enterprise", (enterprise) => {
                 this.enterprises.unshift(enterprise);
             });
         }

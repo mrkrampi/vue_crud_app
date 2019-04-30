@@ -37,7 +37,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "HangGlidersTable",
@@ -61,13 +60,13 @@
             deleteHangGlider(hangGlider) {
                 axios.delete("api/hang_gliders/" + hangGlider.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.hangGliders.findIndex(x => x.id === hangGlider.id);
                         this.hangGliders.splice(index, 1);
                     });
             },
             editHangGlider(hangGlider) {
-                EventBus.$emit("hangGlider-edit-dialog", hangGlider)
+                this.$root.$emit("hangGlider-edit-dialog", hangGlider)
             }
         },
         mounted() {
@@ -79,12 +78,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-hangGlider", (hangGlider) => {
+            this.$root.$on("edit-hangGlider", (hangGlider) => {
                 let index = this.hangGliders.findIndex(x => x.id === hangGlider.id);
                 this.hangGliders.splice(index, 1, hangGlider);
             });
 
-            EventBus.$on("add-hangGlider", (hangGlider) => {
+            this.$root.$on("add-hangGlider", (hangGlider) => {
                 this.hangGliders.push(hangGlider);
             });
         }

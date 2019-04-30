@@ -38,7 +38,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "HelicopterTable",
@@ -65,13 +64,13 @@
             deleteHelicopter(helicopter) {
                 axios.delete("api/helicopters/" + helicopter.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.helicopters.indexOf(helicopter);
                         this.helicopters.splice(index, 1);
                     });
             },
             editHelicopter(helicopter) {
-                EventBus.$emit("helicopter-edit-dialog", helicopter)
+                this.$root.$emit("helicopter-edit-dialog", helicopter)
             }
         },
         mounted() {
@@ -83,12 +82,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-helicopter", (helicopter) => {
+            this.$root.$on("edit-helicopter", (helicopter) => {
                 let index = this.helicopters.findIndex(x => x.id === helicopter.id);
                 this.helicopters.splice(index, 1, helicopter);
             });
 
-            EventBus.$on("add-helicopter", (helicopter) => {
+            this.$root.$on("add-helicopter", (helicopter) => {
                 this.helicopters.push(helicopter);
             });
         }

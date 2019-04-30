@@ -33,7 +33,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "EquipmentTable",
@@ -54,13 +53,13 @@
             deleteEquipment(equipment) {
                 axios.delete("api/equipments/" + equipment.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.equipments.findIndex(x => x.id === equipment.id);
                         this.equipments.splice(index, 1);
                     });
             },
             editEquipment(equipment) {
-                EventBus.$emit("equipment-edit-dialog", equipment)
+                this.$root.$emit("equipment-edit-dialog", equipment)
             }
         },
         mounted() {
@@ -72,12 +71,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-equipment", (equipment) => {
+            this.$root.$on("edit-equipment", (equipment) => {
                 let index = this.equipments.findIndex(x => x.id === equipment.id);
                 this.equipments.splice(index, 1, equipment);
             });
 
-            EventBus.$on("add-equipment", (equipment) => {
+            this.$root.$on("add-equipment", (equipment) => {
                 this.equipments.unshift(equipment);
             });
         }

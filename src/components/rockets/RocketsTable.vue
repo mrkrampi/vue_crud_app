@@ -37,7 +37,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "RocketsTable",
@@ -61,12 +60,12 @@
         },
         methods: {
             editRocket(rocket) {
-                EventBus.$emit("rockets-edit-dialog", rocket)
+                this.$root.$emit("rockets-edit-dialog", rocket)
             },
             deleteRocket(rocket) {
                 axios.delete("api/rockets/" + rocket.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.helicopters.indexOf(rocket);
                         this.rockets.splice(index, 1);
                     });
@@ -81,12 +80,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-rocket", (rocket) => {
+            this.$root.$on("edit-rocket", (rocket) => {
                 let index = this.rockets.findIndex(x => x.id === rocket.id);
                 this.rockets.splice(index, 1, rocket);
             });
 
-            EventBus.$on("add-rocket", (rocket) => {
+            this.$root.$on("add-rocket", (rocket) => {
                 this.rockets.push(rocket);
             });
         }

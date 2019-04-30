@@ -39,7 +39,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "GlidersTable",
@@ -66,13 +65,13 @@
             deleteGlider(glider) {
                 axios.delete("api/gliders/" + glider.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.gliders.findIndex(x => x.id === glider.id);
                         this.gliders.splice(index, 1);
                     });
             },
             editGlider(glider) {
-                EventBus.$emit("glider-edit-dialog", glider)
+                this.$root.$emit("glider-edit-dialog", glider)
             }
         },
         mounted() {
@@ -84,12 +83,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-glider", (glider) => {
+            this.$root.$on("edit-glider", (glider) => {
                 let index = this.gliders.findIndex(x => x.id === glider.id);
                 this.gliders.splice(index, 1, glider);
             });
 
-            EventBus.$on("add-glider", (glider) => {
+            this.$root.$on("add-glider", (glider) => {
                 this.workers.push(glider);
             });
         }

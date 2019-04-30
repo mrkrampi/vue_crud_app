@@ -31,7 +31,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "TypeOfTestsDialog",
@@ -71,13 +70,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.item.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.item.id ? "edit" : "add") + "-item", this.item)
+                    this.$root.$emit("call-snackbar", this.item.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.item.id ? "edit" : "add") + "-item", this.item)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("item-edit-dialog", (item) => {
+            this.$root.$on("item-edit-dialog", (item) => {
                 this.item = Object.assign({}, item);
                 this.dialog = true;
             });

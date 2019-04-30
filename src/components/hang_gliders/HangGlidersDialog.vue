@@ -40,7 +40,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "HangGlidersDialog",
@@ -85,8 +84,8 @@
                     }).then(() => {
                         const hangGlider = Object.assign({}, this.hangGlider);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-hangGlider", hangGlider)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-hangGlider", hangGlider)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -100,14 +99,14 @@
                     }).then(() => {
                         const hangGlider = Object.assign({}, this.hangGlider);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-hangGlider", hangGlider);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-hangGlider", hangGlider);
                     }).catch(err => console.log(err));
                 }
             },
         },
         mounted() {
-            EventBus.$on("hangGlider-edit-dialog", (hangGlider) => {
+            this.$root.$on("hangGlider-edit-dialog", (hangGlider) => {
                 this.hangGlider = Object.assign({}, hangGlider);
                 this.dialog = true;
             });

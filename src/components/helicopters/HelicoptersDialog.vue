@@ -61,7 +61,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "HelicoptersDialog",
@@ -128,8 +127,8 @@
                     }).then(() => {
                         const helicopter = Object.assign({}, this.helicopter);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-helicopter", helicopter)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-helicopter", helicopter)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -143,14 +142,14 @@
                     }).then(() => {
                         const helicopter = Object.assign({}, this.helicopter);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-helicopter", helicopter);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-helicopter", helicopter);
                     }).catch(err => console.log(err));
                 }
             },
         },
         mounted() {
-            EventBus.$on("helicopter-edit-dialog", (helicopter) => {
+            this.$root.$on("helicopter-edit-dialog", (helicopter) => {
                 this.helicopter = Object.assign({}, helicopter);
                 this.dialog = true;
             });

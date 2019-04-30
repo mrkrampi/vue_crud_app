@@ -31,7 +31,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "EquipmentDialog",
@@ -75,13 +74,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.equipment.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.equipment.id ? "edit" : "add") + "-equipment", this.equipment)
+                    this.$root.$emit("call-snackbar", this.equipment.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.equipment.id ? "edit" : "add") + "-equipment", this.equipment)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("equipment-edit-dialog", (equipment) => {
+            this.$root.$on("equipment-edit-dialog", (equipment) => {
                 this.equipment = Object.assign({}, equipment);
                 this.dialog = true;
             });

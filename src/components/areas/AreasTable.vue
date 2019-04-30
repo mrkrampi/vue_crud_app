@@ -35,7 +35,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "AreasTable",
@@ -58,13 +57,13 @@
             deleteArea(area) {
                 axios.delete("api/areas/" + area.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.areas.findIndex(x => x.id === area.id);
                         this.areas.splice(index, 1);
                     });
             },
             editArea(area) {
-                EventBus.$emit("area-edit-dialog", area)
+                this.$root.$emit("area-edit-dialog", area)
             }
         },
         mounted() {
@@ -76,12 +75,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-area", (area) => {
+            this.$root.$on("edit-area", (area) => {
                 let index = this.areas.findIndex(x => x.id === area.id);
                 this.areas.splice(index, 1, area);
             });
 
-            EventBus.$on("add-area", (area) => {
+            this.$root.$on("add-area", (area) => {
                 this.areas.unshift(area);
             });
         }

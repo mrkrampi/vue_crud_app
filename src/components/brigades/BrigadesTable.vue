@@ -35,7 +35,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "BrigadesTable",
@@ -58,13 +57,13 @@
             deleteBrigade(brigade) {
                 axios.delete("api/brigades/" + brigade.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.brigades.findIndex(x => x.id === brigade.id);
                         this.brigades.splice(index, 1);
                     });
             },
             editBrigade(brigade) {
-                EventBus.$emit("brigade-edit-dialog", brigade);
+                this.$root.$emit("brigade-edit-dialog", brigade);
             }
         },
         mounted() {
@@ -76,12 +75,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-brigade", (brigade) => {
+            this.$root.$on("edit-brigade", (brigade) => {
                 let index = this.brigades.findIndex(x => x.id === brigade.id);
                 this.brigades.splice(index, 1, brigade);
             });
 
-            EventBus.$on("add-brigade", (brigade) => {
+            this.$root.$on("add-brigade", (brigade) => {
                 this.brigades.unshift(brigade);
             });
         }

@@ -43,7 +43,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "EnterpriseDialog",
@@ -95,13 +94,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.enterprise.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.enterprise.id ? "edit" : "add") + "-enterprise", this.enterprise)
+                    this.$root.$emit("call-snackbar", this.enterprise.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.enterprise.id ? "edit" : "add") + "-enterprise", this.enterprise)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("enterprise-edit-dialog", (enterprise) => {
+            this.$root.$on("enterprise-edit-dialog", (enterprise) => {
                 this.enterprise = Object.assign({}, enterprise);
                 this.dialog = true;
             });

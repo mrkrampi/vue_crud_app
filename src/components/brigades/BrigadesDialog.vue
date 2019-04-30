@@ -51,7 +51,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "BrigadesDialog",
@@ -101,13 +100,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.brigade.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.brigade.id ? "edit" : "add") + "-brigade", this.brigade)
+                    this.$root.$emit("call-snackbar", this.brigade.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.brigade.id ? "edit" : "add") + "-brigade", this.brigade)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("brigade-edit-dialog", (brigade) => {
+            this.$root.$on("brigade-edit-dialog", (brigade) => {
                 this.brigade = Object.assign({}, brigade);
                 this.dialog = true;
             });

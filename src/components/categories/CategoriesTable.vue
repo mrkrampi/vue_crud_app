@@ -33,7 +33,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "CategoriesTable",
@@ -54,13 +53,13 @@
             deleteCategory(category) {
                 axios.delete("api/categories/" + category.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.categories.findIndex(x => x.id === category.id);
                         this.categories.splice(index, 1);
                     });
             },
             editCategory(category) {
-                EventBus.$emit("category-edit-dialog", category)
+                this.$root.$emit("category-edit-dialog", category)
             }
         },
         mounted() {
@@ -72,12 +71,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-category", (category) => {
+            this.$root.$on("edit-category", (category) => {
                 let index = this.categories.findIndex(x => x.id === category.id);
                 this.categories.splice(index, 1, category);
             });
 
-            EventBus.$on("add-category", (category) => {
+            this.$root.$on("add-category", (category) => {
                 this.categories.unshift(category);
             });
         }

@@ -21,8 +21,6 @@
 </template>
 
 <script>
-    import {EventBus} from "@/event-bus";
-
     export default {
         name: "Snackbar",
         data () {
@@ -36,11 +34,6 @@
             }
         },
         mounted() {
-            EventBus.$on("call-snackbar", msg => {
-                this.text = msg;
-                this.snackbar = true;
-            });
-
             this.$root.$on("call-snackbar", msg => {
                 this.text = msg;
                 this.snackbar = true;

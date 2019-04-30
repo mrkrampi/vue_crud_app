@@ -61,9 +61,6 @@
 </template>
 
 <script>
-
-
-    import {EventBus} from "@/event-bus";
     import axios from "axios";
 
     export default {
@@ -118,8 +115,8 @@
                     }).then(() => {
                         const newTech = Object.assign({}, this.tech);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-tech", newTech)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-tech", newTech)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -133,8 +130,8 @@
                     }).then(() => {
                         const newTech = Object.assign({}, this.tech);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-tech", newTech);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-tech", newTech);
                     }).catch(err => console.log(err));
                 }
             },
@@ -145,7 +142,7 @@
                     res.data.forEach(i => this.categories.push(i));
                 }).catch(err => console.log(err));
 
-            EventBus.$on("tech-edit-dialog", (tech) => {
+            this.$root.$on("tech-edit-dialog", (tech) => {
                 this.tech = Object.assign({}, tech);
                 this.dialog = true;
             });

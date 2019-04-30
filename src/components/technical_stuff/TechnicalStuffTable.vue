@@ -36,7 +36,6 @@
 
 <script>
     import axios from 'axios'
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "TechnicalStuffTable",
@@ -59,12 +58,12 @@
         },
         methods: {
             editTech(tech) {
-                EventBus.$emit("tech-edit-dialog", tech)
+                this.$root.$emit("tech-edit-dialog", tech)
             },
             deleteTech(tech) {
                 axios.delete("api/technical_stuff/" + tech.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.technicalStuff.indexOf(tech);
                         this.technicalStuff.splice(index, 1);
                     }).finally(() => this.loading = false);
@@ -84,12 +83,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-tech", (tech) => {
+            this.$root.$on("edit-tech", (tech) => {
                 let index = this.technicalStuff.findIndex(x => x.id === tech.id);
                 this.technicalStuff.splice(index, 1, tech);
             });
 
-            EventBus.$on("add-tech", (worker) => {
+            this.$root.$on("add-tech", (worker) => {
                 this.technicalStuff.push(worker);
             });
         }

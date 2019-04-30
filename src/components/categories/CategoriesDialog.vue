@@ -32,7 +32,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "CategoriesDialog",
@@ -76,13 +75,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.category.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.category.id ? "edit" : "add") + "-category", this.category)
+                    this.$root.$emit("call-snackbar", this.category.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.category.id ? "edit" : "add") + "-category", this.category)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("category-edit-dialog", (category) => {
+            this.$root.$on("category-edit-dialog", (category) => {
                 this.category = Object.assign({}, category);
                 this.dialog = true;
             });

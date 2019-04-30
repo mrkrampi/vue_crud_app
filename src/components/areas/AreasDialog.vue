@@ -51,7 +51,6 @@
 
 <script>
     import axios from 'axios';
-    import  {EventBus} from "@/event-bus";
 
     export default {
         name: "AreasDialog",
@@ -101,13 +100,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.area.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.area.id ? "edit" : "add") + "-area", this.area)
+                    this.$root.$emit("call-snackbar", this.area.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.area.id ? "edit" : "add") + "-area", this.area)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("area-edit-dialog", (area) => {
+            this.$root.$on("area-edit-dialog", (area) => {
                 this.area = Object.assign({}, area);
                 this.dialog = true;
             });

@@ -35,7 +35,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "DepartmentsTable",
@@ -58,13 +57,13 @@
             deleteDepartment(department) {
                 axios.delete("api/departments/" + department.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.departments.findIndex(x => x.id === department.id);
                         this.departments.splice(index, 1);
                     });
             },
             editDepartment(department) {
-                EventBus.$emit("department-edit-dialog", department)
+                this.$root.$emit("department-edit-dialog", department)
             }
         },
         mounted() {
@@ -75,12 +74,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-department", (department) => {
+            this.$root.$on("edit-department", (department) => {
                 let index = this.departments.findIndex(x => x.id === department.id);
                 this.departments.splice(index, 1, department);
             });
 
-            EventBus.$on("add-department", (department) => {
+            this.$root.$on("add-department", (department) => {
                 this.departments.unshift(department);
             });
         }

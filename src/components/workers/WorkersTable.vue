@@ -36,7 +36,6 @@
 
 <script>
     import axios from 'axios'
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "WorkersTable",
@@ -59,12 +58,12 @@
         },
         methods: {
             editWorker(worker) {
-                EventBus.$emit("workers-edit-dialog", worker);
+                this.$root.$emit("workers-edit-dialog", worker);
             },
             deleteWorker(worker) {
                 axios.delete("api/workers/" + worker.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.workers.indexOf(worker);
                         this.workers.splice(index, 1);
                     });
@@ -84,12 +83,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-worker", (worker) => {
+            this.$root.$on("edit-worker", (worker) => {
                 let index = this.workers.findIndex(x => x.id === worker.id);
                 this.workers.splice(index, 1, worker);
             });
 
-            EventBus.$on("add-worker", (worker) => {
+            this.$root.$on("add-worker", (worker) => {
                 this.workers.push(worker);
             });
         }

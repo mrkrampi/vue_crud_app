@@ -39,7 +39,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "PlanesTable",
@@ -67,13 +66,13 @@
             deletePlane(plane) {
                 axios.delete("api/planes/" + plane.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.planes.indexOf(plane);
                         this.planes.splice(index, 1);
                     });
             },
             editPlane(plane) {
-                EventBus.$emit("plane-edit-dialog", plane)
+                this.$root.$emit("plane-edit-dialog", plane)
             }
         },
         mounted() {
@@ -85,12 +84,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-plane", (plane) => {
+            this.$root.$on("edit-plane", (plane) => {
                 let index = this.planes.findIndex(x => x.id === plane.id);
                 this.planes.splice(index, 1, plane);
             });
 
-            EventBus.$on("add-plane", (plane) => {
+            this.$root.$on("add-plane", (plane) => {
                 this.planes.push(plane);
             });
         }

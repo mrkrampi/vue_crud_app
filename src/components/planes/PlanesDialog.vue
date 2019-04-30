@@ -77,7 +77,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus.js";
 
     export default {
         name: "PlanesDialog",
@@ -143,8 +142,8 @@
                     }).then(() => {
                         const plane = Object.assign({}, this.plane);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-plane", plane)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-plane", plane)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -158,8 +157,8 @@
                     }).then(() => {
                         const plane = Object.assign({}, this.plane);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-plane", plane);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-plane", plane);
                     }).catch(err => console.log(err));
                 }
             },
@@ -170,7 +169,7 @@
                     res.data.forEach(i => this.categories.push(i));
                 }).catch(err => console.log(err));
 
-            EventBus.$on("plane-edit-dialog", (plane) => {
+            this.$root.$on("plane-edit-dialog", (plane) => {
                 this.plane = Object.assign({}, plane);
                 this.dialog = true;
             });

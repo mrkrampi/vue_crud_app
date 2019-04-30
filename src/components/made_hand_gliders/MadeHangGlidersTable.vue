@@ -36,7 +36,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "MadeHangGlidersTable",
@@ -60,13 +59,13 @@
             deleteProduct(product) {
                 axios.delete("api/made_hang_gliders/" + product.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         const index = this.products.indexOf(product);
                         this.products.splice(index, 1);
                     });
             },
             editProduct(product) {
-                EventBus.$emit("product-edit-dialog", product)
+                this.$root.$emit("product-edit-dialog", product)
             }
         },
         mounted() {
@@ -78,12 +77,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-product", (product) => {
+            this.$root.$on("edit-product", (product) => {
                 let index = this.products.findIndex(x => x.id === product.id);
                 this.products.splice(index, 1, product);
             });
 
-            EventBus.$on("add-product", (product) => {
+            this.$root.$on("add-product", (product) => {
                 this.products.unshift(product);
             });
         }

@@ -50,7 +50,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "RocketsDialog",
@@ -98,8 +97,8 @@
                     }).then(() => {
                         const rocket = Object.assign({}, this.rocket);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-rocket", rocket)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-rocket", rocket)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -113,8 +112,8 @@
                     }).then(() => {
                         const rocket = Object.assign({}, this.rocket);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-rocket", rocket);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-rocket", rocket);
                     }).catch(err => console.log(err));
                 }
             },
@@ -125,7 +124,7 @@
                     res.data.forEach(i => this.categories.push(i));
                 }).catch(err => console.log(err));
 
-            EventBus.$on("rockets-edit-dialog", (rocket) => {
+            this.$root.$on("rockets-edit-dialog", (rocket) => {
                 this.rocket = Object.assign({}, rocket);
                 this.dialog = true;
             });

@@ -50,7 +50,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "GlidersDialog",
@@ -101,8 +100,8 @@
                     }).then(() => {
                         const glider = Object.assign({}, this.glider);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-glider", glider)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-glider", glider)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -116,14 +115,14 @@
                     }).then(() => {
                         const glider = Object.assign({}, this.glider);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-glider", glider);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-glider", glider);
                     }).catch(err => console.log(err));
                 }
             },
         },
         mounted() {
-            EventBus.$on("glider-edit-dialog", (glider) => {
+            this.$root.$on("glider-edit-dialog", (glider) => {
                 this.glider = Object.assign({}, glider);
                 this.dialog = true;
             });

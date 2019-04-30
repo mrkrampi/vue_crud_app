@@ -61,7 +61,6 @@
 </template>
 
 <script>
-    import {EventBus} from "@/event-bus";
     import axios from "axios";
 
     export default {
@@ -114,8 +113,8 @@
                     }).then(() => {
                         const worker = Object.assign({}, this.worker);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис відредаговано");
-                        EventBus.$emit("edit-worker", worker)
+                        this.$root.$emit("call-snackbar", "Запис відредаговано");
+                        this.$root.$emit("edit-worker", worker)
                     })
                         .catch(err => console.log(err));
                 } else {
@@ -129,8 +128,8 @@
                     }).then(() => {
                         const worker = Object.assign({}, this.worker);
                         this.close();
-                        EventBus.$emit("call-snackbar", "Запис додано");
-                        EventBus.$emit("add-worker", worker);
+                        this.$root.$emit("call-snackbar", "Запис додано");
+                        this.$root.$emit("add-worker", worker);
                     }).catch(err => console.log(err));
                 }
             },
@@ -141,7 +140,7 @@
                     res.data.forEach(i => this.categories.push(i));
                 }).catch(err => console.log(err));
 
-            EventBus.$on("workers-edit-dialog", (worker) => {
+            this.$root.$on("workers-edit-dialog", (worker) => {
                 this.worker = Object.assign({}, worker);
                 this.dialog = true;
             });

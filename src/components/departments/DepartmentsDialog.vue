@@ -51,7 +51,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "DepartmentsDialog",
@@ -101,13 +100,13 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.department.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.department.id ? "edit" : "add") + "-department", this.department)
+                    this.$root.$emit("call-snackbar", this.department.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.department.id ? "edit" : "add") + "-department", this.department)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            EventBus.$on("department-edit-dialog", (department) => {
+            this.$root.$on("department-edit-dialog", (department) => {
                 this.department = Object.assign({}, department);
                 this.dialog = true;
             });

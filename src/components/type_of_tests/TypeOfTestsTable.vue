@@ -34,7 +34,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "TypeOfTestsTable",
@@ -55,13 +54,13 @@
             deleteItem(item) {
                 axios.delete("api/type_of_tests/" + item.id)
                     .then(() => {
-                        EventBus.$emit("call-snackbar", "Запис видалено");
+                        this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.items.findIndex(x => x.id === item.id);
                         this.items.splice(index, 1);
                     });
             },
             edit(item) {
-                EventBus.$emit("item-edit-dialog", item);
+                this.$root.$emit("item-edit-dialog", item);
             }
         },
         mounted() {
@@ -73,12 +72,12 @@
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
 
-            EventBus.$on("edit-item", (item) => {
+            this.$root.$on("edit-item", (item) => {
                 let index = this.items.findIndex(x => x.id === item.id);
                 this.items.splice(index, 1, item);
             });
 
-            EventBus.$on("add-item", (item) => {
+            this.$root.$on("add-item", (item) => {
                 this.items.unshift(item);
             });
         }

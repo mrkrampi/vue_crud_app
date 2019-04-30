@@ -51,7 +51,6 @@
 
 <script>
     import axios from 'axios';
-    import {EventBus} from "@/event-bus";
 
     export default {
         name: "MadePlanesDialog",
@@ -80,7 +79,7 @@
             }
         },
         watch: {
-            dialog(newValue, oldValue) {
+            dialog(newValue) {
                 if (!newValue) {
                     this.close();
                 }
@@ -104,8 +103,8 @@
                     }
                 }).then(() => {
                     this.close();
-                    EventBus.$emit("call-snackbar", this.product.id ? "Запис відредаговано" : "Запис додано");
-                    EventBus.$emit((this.product.id ? "edit" : "add") + "-product", this.product)
+                    this.$root.$emit("call-snackbar", this.product.id ? "Запис відредаговано" : "Запис додано");
+                    this.$root.$emit((this.product.id ? "edit" : "add") + "-product", this.product)
                 }).catch(err => console.log(err));
             }
         },
@@ -120,7 +119,7 @@
                     res.data.forEach(i => this.cycleOfWork.push(i));
                 }).catch(err => console.log(err));
 
-            EventBus.$on("product-edit-dialog", (product) => {
+            this.$root.$on("product-edit-dialog", (product) => {
                 this.product = Object.assign({}, product);
                 this.dialog = true;
             });
