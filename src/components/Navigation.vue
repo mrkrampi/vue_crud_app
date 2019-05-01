@@ -86,6 +86,7 @@
                     {title: 'Тестування гелікоптерів', path: "/helicopters_tests", role: ["admin", "tech"]},
                     {title: 'Тестування літаків', path: "/plane_tests", role: ["admin", "tech"]},
                     {title: 'Тестування ракет', path: "/rockets_tests", role: ["admin", "tech"]},
+                    {title: 'Категорії працівників', path: "/category_of_workers", role: ["admin", "tech"]},
                 ]
             }
         },

@@ -8,7 +8,7 @@
     >
         <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
         <template v-slot:items="props">
-            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.categoryName }}</td>
             <td class="justify-right layout px-0">
                 <v-icon
                         small
@@ -35,11 +35,11 @@
     import axios from 'axios';
 
     export default {
-        name: "TypeOfTestsTable",
+        name: "CategoryOfWorkersTable",
         data() {
             return {
                 headers: [
-                    {text: 'Назва тесту', value: 'category', sortable: false},
+                    {text: 'Назва категорії', value: 'category', sortable: false},
                     {text: 'Дії', value: 'name', sortable: false},
                 ],
                 items: [],
@@ -51,7 +51,7 @@
         },
         methods: {
             deleteItem(item) {
-                axios.delete("api/type_of_tests/" + item.id)
+                axios.delete("api/category_of_workers/" + item.id)
                     .then(() => {
                         this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.items.findIndex(x => x.id === item.id);
@@ -63,10 +63,10 @@
             }
         },
         mounted() {
-            axios.get("api/type_of_tests")
+            axios.get("api/category_of_workers")
                 .then(res => {
                     this.items = res.data;
-                    this.items.sort((a, b) => a.name > b.name ? 1 : -1)
+                    this.items.sort((a, b) => a.categoryName > b.categoryName ? 1 : -1)
                 })
                 .catch(() => console.log("Сервер недоступний"))
                 .finally(() => this.loading = false);
