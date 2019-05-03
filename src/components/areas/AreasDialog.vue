@@ -101,12 +101,13 @@
                 }).then(() => {
                     this.close();
                     this.$root.$emit("call-snackbar", this.area.id ? "Запис відредаговано" : "Запис додано");
-                    this.$root.$emit((this.area.id ? "edit" : "add") + "-area", this.area)
+                    this.area.departmentName = this.area.department.address;
+                    this.$root.$emit((this.area.id ? "edit" : "add") + "-item", this.area)
                 }).catch(err => console.log(err));
             }
         },
         mounted() {
-            this.$root.$on("area-edit-dialog", (area) => {
+            this.$root.$on("item-edit-dialog", (area) => {
                 this.area = Object.assign({}, area);
                 this.dialog = true;
             });

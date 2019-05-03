@@ -24,6 +24,7 @@ import ProductsTests from "@/pages/ProductsTests";
 import Laboratories from "@/pages/Laboratories";
 import CategoryOfWorkers from "@/pages/CategoryOfWorkers";
 import CycleOfWorks from "@/pages/CycleOfWorks";
+import Testers from "@/pages/Testers";
 
 
 Vue.use(VueRouter);
@@ -32,6 +33,7 @@ const routes = [
     {path: '/', component: HelloWorld},
     {path: '/workers', component: Workers},
     {path: '/tech', component: TechnicalStuff},
+    {path: '/testers', component: Testers},
     {path: '/planes', component: Planes},
     {path: '/helicopters', component: Helicopters},
     {path: '/rockets', component: Rockets},

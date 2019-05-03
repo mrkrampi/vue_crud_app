@@ -122,8 +122,9 @@
             },
         },
         mounted() {
-            this.$root.$on("glider-edit-dialog", (glider) => {
-                this.glider = Object.assign({}, glider);
+            this.$root.$on("glider-edit-dialog", (id) => {
+                axios.get(`api/gliders/${id}`)
+                    .then(response => this.glider = response.data);
                 this.dialog = true;
             });
         }

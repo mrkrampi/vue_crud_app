@@ -63,6 +63,7 @@
                 items: [
                     {title: 'Працівники', path: "/workers", role: ["admin", "hr"]},
                     {title: 'Технічні працівники', path: "/tech", role: ["admin", "hr"]},
+                    {title: 'Тестери', path: "/testers", role: ["admin", "hr"]},
                     {title: 'Підприємства', path: "/enterprises", role: ["admin", "hr"]},
                     {title: 'Літаки', path: "/planes", role: ["admin", "tech"]},
                     {title: 'Ракети', path: "/rockets", role: ["admin", "tech"]},

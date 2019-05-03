@@ -44,7 +44,7 @@
                     {text: 'Назва', value: 'name', sortable: true},
                     {text: 'Начальник ділянки', value: 'technicalStuff', sortable: false},
                     {text: 'Цех', value: 'department', sortable: false},
-                    {text: 'Дії', value: 'name', sortable: false}
+                    {text: 'Дії', value: 'action', sortable: false}
                 ],
                 loading: true,
                 pagination: {
