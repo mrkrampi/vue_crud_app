@@ -3,7 +3,7 @@
         <universal-table
                 :headers="headers"
                 :api-link="apiLink"
-                table-name="Цикли робіт"
+                table-name="Ділянки"
                 :items="items"
                 :loading="loading"
         ></universal-table>

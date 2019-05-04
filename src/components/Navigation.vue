@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <v-toolbar :clipped="primaryDrawer.clipped" app absolute>
+        <v-toolbar :clipped="primaryDrawer.clipped" app fixed>
             <v-toolbar-side-icon
                     v-if="primaryDrawer.type !== 'permanent'"
                     @click="primaryDrawer.model = !primaryDrawer.model"
