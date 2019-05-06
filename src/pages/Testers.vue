@@ -10,7 +10,6 @@
         <universal-dialog
                 :api-link="apiLink"
                 :fields="fields"
-                :callback="maker"
         ></universal-dialog>
         <snackbar></snackbar>
     </div>
@@ -29,7 +28,7 @@
             return {
                 apiLink: 'testers',
                 headers: [
-                    {text: 'ПІБ', value: 'name', sortable: false},
+                    {text: 'ПІБ', value: 'testerName', sortable: false},
                     {text: 'Дата народження', value: 'birthday', sortable: false},
                     {text: 'Адрес', value: 'address', sortable: false},
                     {text: 'Номер телефону', value: 'phoneNumber', sortable: false},
@@ -37,7 +36,6 @@
                     {text: 'Лабораторія', value: 'laboratoryName', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false}
                 ],
-                laboratories: [],
                 fields: [
                     {label: `Ім'я`, value: `firstName`, type: `textField`, size: 'md4'},
                     {label: `По-батькові`, value: `patronymic`, type: `textField`, size: 'md4'},
@@ -46,43 +44,18 @@
                     {label: `Адрес`, value: `address`, type: `textField`},
                     {label: `Номер телефону`, value: `phoneNumber`, type: `textField`, size: 'md6'},
                     {label: `Зарплата`, value: `salary`, type: `textField`, size: 'md6'},
-                    {
-                        label: `Лабораторія`,
-                        value: `laboratory`,
-                        type: `select`,
-                        anyData: this.laboratories,
-                        linkForData: `laboratories`
-                    },
+                    {label: `Лабораторія`, value: `laboratory`, type: `select`, linkForData: `laboratories`},
                 ],
                 loading: true,
                 items: [],
             }
         },
-        methods: {
-            maker(item) {
-                return {
-                    ...item,
-                    name: `${item.firstName} ${item.lastName}`,
-                    laboratoryName: item.laboratory.name
-                }
-            }
-        },
         mounted() {
             axios.get(`api/${this.apiLink}`)
-                .then(response => {
-                    this.items = response.data;
-                    this.items.forEach(item => {
-                        item.name = `${item.firstName + ' ' + item.lastName}`;
-                        item.laboratoryName = item.laboratory.name;
-                    });
-                }).catch(error => console.log(error))
+                .then(response => this.items = response.data
+                    .sort((a, b) => a.testerName > b.testerName ? 1 : -1))
+                .catch(error => console.log(error))
                 .finally(() => this.loading = false);
-
-            axios.get(`api/laboratories`)
-                .then(response => {
-                    this.laboratories = response.data;
-                    this.fields[7].anyData = this.laboratories;
-                }).catch(error => console.log(error));
         }
     }
 </script>

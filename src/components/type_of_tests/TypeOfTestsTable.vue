@@ -39,7 +39,7 @@
         data() {
             return {
                 headers: [
-                    {text: 'Назва тесту', value: 'category', sortable: false},
+                    {text: 'Назва тесту', value: 'name', sortable: false},
                     {text: 'Дії', value: 'name', sortable: false},
                 ],
                 items: [],

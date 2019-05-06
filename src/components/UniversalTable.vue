@@ -22,11 +22,9 @@
             >
                 <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
                 <template v-slot:items="props">
-                    <template v-for="header in headers">
-                        <td v-show="header.value !== 'action'">
+                        <td v-for="header in headers" v-show="header.value !== 'action'">
                             {{props.item[header.value]}}
                         </td>
-                    </template>
                     <td class="justify-center layout px-0">
                         <v-icon
                                 small

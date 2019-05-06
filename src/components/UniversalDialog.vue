@@ -13,24 +13,22 @@
             <v-card-text>
                 <v-container grid-list-md>
                     <v-layout wrap>
-                        <template v-for="field in fields">
-                            <v-flex xs12 sm12 :class="field.size">
-                                <v-text-field
-                                        v-model="item[field.value]"
-                                        :label="field.label"
-                                        v-if="field.type === 'textField'"
-                                ></v-text-field>
-                                <v-select
-                                        v-else
-                                        :items="field.suka"
-                                        v-model="item[field.value]"
-                                        item-text="name"
-                                        item-value="id"
-                                        return-object
-                                        :label="field.label"
-                                ></v-select>
-                            </v-flex>
-                        </template>
+                        <v-flex v-for="field in fields" xs12 sm12 :class="field.size">
+                            <v-text-field
+                                    v-model="item[field.value]"
+                                    :label="field.label"
+                                    v-if="field.type === 'textField'"
+                            ></v-text-field>
+                            <v-select
+                                    v-else
+                                    :items="field.selectItems"
+                                    v-model="item[field.value]"
+                                    :item-text="field.field || 'name'"
+                                    item-value="id"
+                                    return-object
+                                    :label="field.label"
+                            ></v-select>
+                        </v-flex>
                     </v-layout>
                 </v-container>
             </v-card-text>
@@ -51,7 +49,6 @@
         name: "UniversalDialog",
         props: {
             apiLink: String,
-            callback: Function,
             fields: Array,
         },
         data() {
@@ -91,7 +88,7 @@
                 }).then(response => {
                     this.close();
                     this.$root.$emit("call-snackbar", this.item.id ? "Запис відредаговано" : "Запис додано");
-                    this.$root.$emit((this.item.id ? "edit" : "add") + "-item", this.callback(response.data));
+                    this.$root.$emit((this.item.id ? "edit" : "add") + "-item", response.data);
                 }).catch(err => console.log(err));
             }
         },
@@ -103,9 +100,11 @@
 
             this.fields.forEach(field => {
                 if (field.linkForData) {
-                    axios.get(`api/${field.linkForData}`).then(res => field.suka = res.data);
+                    axios.get(`api/${field.linkForData}`)
+                        .then(res => field.selectItems = res.data)
+                        .catch(error => console.log(error));
                 }
-            })
+            });
         }
     }
 </script>

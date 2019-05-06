@@ -7,21 +7,23 @@
                 :items="items"
                 :loading="loading"
         ></universal-table>
-        <cycle-of-works-dialog></cycle-of-works-dialog>
+        <universal-dialog
+                :api-link="apiLink"
+                :fields="fields"
+        ></universal-dialog>
         <snackbar></snackbar>
     </div>
 </template>
 
 <script>
     import axios from 'axios';
-    import CycleOfWorksTable from "@/components/cycle_of_works/CycleOfWorksTable";
-    import CycleOfWorksDialog from "@/components/cycle_of_works/CycleOfWorksDialog";
     import Snackbar from "@/components/others/Snackbar";
     import UniversalTable from "@/components/UniversalTable";
+    import UniversalDialog from "@/components/UniversalDialog";
 
     export default {
         name: "CycleOfWorks",
-        components: {UniversalTable, Snackbar, CycleOfWorksDialog, CycleOfWorksTable},
+        components: {UniversalDialog, UniversalTable, Snackbar},
         data() {
             return {
                 apiLink: 'cycle_of_works',
@@ -30,6 +32,10 @@
                     {text: 'Опис', value: 'description', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false},
                 ],
+                fields: [
+                    {label: 'Цикл робіт', value: 'name', type: 'textField'},
+                    {label: 'Опис', value: 'description', type: 'textField'},
+                ],
                 items: [],
                 loading: true,
             }
@@ -37,7 +43,8 @@
         mounted() {
             axios.get(`api/${this.apiLink}`)
                 .then(response => {
-                    this.items = response.data;
+                    this.items = response.data
+                        .sort((a, b) => a.name > b.name ? 1 : -1);
                 }).catch(error => console.log(error))
                 .finally(() => this.loading = false);
         }
