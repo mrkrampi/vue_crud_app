@@ -68,7 +68,7 @@
                 if (!newValue) {
                     this.close();
                 }
-            }
+            },
         },
         methods: {
             close() {

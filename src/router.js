@@ -25,6 +25,7 @@ import Laboratories from "@/pages/Laboratories";
 import CategoryOfWorkers from "@/pages/CategoryOfWorkers";
 import CycleOfWorks from "@/pages/CycleOfWorks";
 import Testers from "@/pages/Testers";
+import MadeProducts from "@/pages/MadeProducts";
 
 
 Vue.use(VueRouter);
@@ -39,11 +40,31 @@ const routes = [
     {path: '/rockets', component: Rockets},
     {path: '/gliders', component: Gliders},
     {path: '/hang_gliders', component: HangGliders},
-    {path: '/made_planes', component: MadePlanes},
-    {path: '/made_rockets', component: MadeRockets},
-    {path: '/made_helicopters', component: MadeHelicopters},
-    {path: '/made_gliders', component: MadeGliders},
-    {path: '/made_hang_gliders', component: MadeHangGliders},
+    {
+        path: '/made_planes',
+        component: MadeProducts,
+        props: {apiLink: 'made_planes', tableName: 'Виготовлення літаків'}
+    },
+    {
+        path: '/made_helicopters',
+        component: MadeProducts,
+        props: {apiLink: 'made_helicopters', tableName: 'Виготовлення гелікоптерів'}
+    },
+    {
+        path: '/made_rockets',
+        component: MadeProducts,
+        props: {apiLink: 'made_rockets', tableName: 'Виготовлення ракет'}
+    },
+    {
+        path: '/made_gliders',
+        component: MadeProducts,
+        props: {apiLink: 'made_gliders', tableName: 'Виготовлення планерів'}
+    },
+    {
+        path: '/made_hang_gliders',
+        component: MadeProducts,
+        props: {apiLink: 'made_hang_gliders', tableName: 'Виготовлення дельтапланів'}
+    },
     {path: '/enterprises', component: Enterprise},
     {path: '/departments', component: Departments},
     {path: '/areas', component: Areas},
@@ -57,27 +78,27 @@ const routes = [
     {
         path: '/gliders_tests',
         component: ProductsTests,
-        props: {link: 'gliders_tests', nameForProduct: 'Назва планера'}
+        props: {apiLink: 'gliders_tests', tableName: 'Тестування планерів'}
     },
     {
         path: '/hang_gliders_tests',
         component: ProductsTests,
-        props: {link: 'hang_gliders_tests', nameForProduct: 'Назва дельтаплана'}
+        props: {apiLink: 'hang_gliders_tests', tableName: 'Тестування дельтапланів'}
     },
     {
         path: '/helicopters_tests',
         component: ProductsTests,
-        props: {link: 'helicopters_tests', nameForProduct: 'Назва гелікоптера'}
+        props: {apiLink: 'helicopters_tests', tableName: 'Тестування гелікоптерів'}
     },
     {
         path: '/plane_tests',
         component: ProductsTests,
-        props: {link: 'planes_tests', nameForProduct: 'Назва літака'}
+        props: {apiLink: 'planes_tests', tableName: 'Тестування літаків'}
     },
     {
         path: '/rockets_tests',
         component: ProductsTests,
-        props: {link: 'rockets_tests', nameForProduct: 'Назва ракети'}
+        props: {apiLink: 'rockets_tests', tableName: 'Тестування ракет'}
     },
     {path: '*', component: HelloWorld}
 ];

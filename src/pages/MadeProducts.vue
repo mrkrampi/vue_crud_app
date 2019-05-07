@@ -4,8 +4,8 @@
                 :api-link="apiLink"
                 :headers="headers"
                 :table-name="tableName"
-                :items="items"
                 :loading="loading"
+                :items="items"
         ></universal-table>
         <universal-dialog
                 :api-link="apiLink"
@@ -17,13 +17,13 @@
 
 <script>
     import axios from 'axios';
-    import Snackbar from "@/components/others/Snackbar";
     import UniversalTable from "@/components/UniversalTable";
     import UniversalDialog from "@/components/UniversalDialog";
+    import Snackbar from "@/components/others/Snackbar";
 
     export default {
-        name: "ProductsTests",
-        components: {UniversalDialog, UniversalTable, Snackbar},
+        name: "MadeProducts",
+        components: {Snackbar, UniversalDialog, UniversalTable},
         props: {
             apiLink: String,
             tableName: String
@@ -31,25 +31,20 @@
         data() {
             return {
                 headers: [
-                    {text: 'Назва продукту', value: 'productName', sortable: false},
-                    {text: 'Назва тесту', value: 'typeOfTestName', sortable: false},
-                    {text: 'Дата тесту', value: 'testDate', sortable: false},
-                    {text: 'Результат', value: 'result', sortable: false},
-                    {text: 'Дії', value: 'action', sortable: false},
+                    {text: 'Назва виробу', value: 'productName', sortable: false},
+                    {text: 'Цикл робіт', value: 'cycleOfWorkName', sortable: false},
+                    {text: 'Дата виготовлення', value: 'dateOfManufacture', sortable: false},
+                    {text: 'Готовність', value: 'ready', sortable: false},
+                    {text: 'Дії', value: 'action', sortable: false}
                 ],
                 fields: [
-                    {
-                        label: 'Назва продукту',
-                        value: 'product',
-                        type: 'select',
-                        linkForData: this.apiLink.slice(0, this.apiLink.length - 6)
-                    },
-                    {label: 'Назва тесту', value: 'typeOfTest', type: 'select', linkForData: 'type_of_tests'},
-                    {label: 'Дата тесту', value: 'testDate', type: 'textField'},
-                    {label: 'Результат', value: 'result', type: 'textField'},
+                    {label: 'Назва виробу', value: 'product', type: 'select', linkForData: this.apiLink.slice(5)},
+                    {label: 'Цикл робіт', value: 'cycleOfWork', type: 'select', linkForData: 'cycle_of_works'},
+                    {label: 'Дата виготовлення', value: 'dateOfManufacture', type: 'textField'},
+                    {label: 'Готовність', value: 'ready', type: 'textField'},
                 ],
-                items: [],
-                loading: true
+                loading: true,
+                items: []
             }
         },
         watch: {

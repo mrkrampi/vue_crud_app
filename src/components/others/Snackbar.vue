@@ -27,7 +27,7 @@
             return {
                 snackbar: false,
                 y: 'bottom',
-                x: 'right',
+                x: 'left',
                 mode: '',
                 timeout: 6000,
                 text: 'test'
