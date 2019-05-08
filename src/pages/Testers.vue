@@ -41,7 +41,6 @@
                     {label: `По-батькові`, value: `patronymic`, type: `textField`, size: 'md4'},
                     {label: `Прізвище`, value: `lastName`, type: `textField`, size: 'md4'},
                     {label: `Дата народження`, value: `birthday`, type: `textField`},
-                    {label: `Дата прийому на роботу`, value: `hireDate`, type: `textField`},
                     {label: `Адрес`, value: `address`, type: `textField`},
                     {label: `Номер телефону`, value: `phoneNumber`, type: `textField`, size: 'md6'},
                     {label: `Зарплата`, value: `salary`, type: `textField`, size: 'md6'},
