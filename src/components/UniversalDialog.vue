@@ -1,8 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-    <v-dialog v-model="dialog" max-width="500">
+    <v-dialog v-model="dialog" max-width="600" persistent>
         <template v-slot:activator="{ on }">
-            <v-btn fab dark color="indigo" v-on="on" fixed right bottom>
-                <v-icon dark>add</v-icon>
+            <v-btn outline dark color="indigo" v-on="on" fixed top right class="btn">
+                Додати запис
             </v-btn>
         </template>
         <v-card>
@@ -108,3 +108,9 @@
         }
     }
 </script>
+
+<style scoped>
+    .btn {
+        z-index: 999;
+    }
+</style>
