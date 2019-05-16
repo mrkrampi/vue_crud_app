@@ -30,11 +30,19 @@
                 headers: [
                     {text: 'Цикл робіт', value: 'name', sortable: false},
                     {text: 'Опис', value: 'description', sortable: false},
+                    {text: 'Бригада', value: 'brigadeName', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false},
                 ],
                 fields: [
                     {label: 'Цикл робіт', value: 'name', type: 'textField'},
                     {label: 'Опис', value: 'description', type: 'textField'},
+                    {
+                        label: `Бригада`,
+                        value: `brigade`,
+                        type: `select`,
+                        linkForData: `brigades`,
+                        field: `name`
+                    }
                 ],
                 items: [],
                 loading: true,

@@ -29,10 +29,26 @@
                 apiLink: 'type_of_tests',
                 headers: [
                     {text: 'Назва тесту', value: 'name', sortable: false},
+                    {text: 'Лабораторія', value: 'laboratoryName', sortable: false},
+                    {text: 'Обладнання', value: 'equipmentName', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false},
                 ],
                 fields: [
-                    {label: 'Назва тесту', value: 'name', type: 'textField'}
+                    {label: 'Назва тесту', value: 'name', type: 'textField'},
+                    {
+                        label: `Лабораторія`,
+                        value: `laboratory`,
+                        type: `select`,
+                        linkForData: `laboratories`,
+                        field: `name`
+                    },
+                    {
+                        label: `Обладнання`,
+                        value: `equipment`,
+                        type: `select`,
+                        linkForData: `equipments`,
+                        field: `name`
+                    }
                 ],
                 loading: true,
                 items: []

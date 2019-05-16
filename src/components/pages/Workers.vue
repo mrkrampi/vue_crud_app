@@ -33,6 +33,7 @@
                     {text: 'Номер телефону', value: 'phoneNumber', sortable: false},
                     {text: 'Зарплата', value: 'salary', sortable: false},
                     {text: 'Категорія', value: 'categoryName', sortable: false},
+                    {text: 'Бригада', value: 'brigadeName', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false}
                 ],
                 fields: [
@@ -51,6 +52,13 @@
                         linkForData: `category_of_workers`,
                         field: 'categoryName'
                     },
+                    {
+                        label: `Бригада`,
+                        value: `brigade`,
+                        type: `select`,
+                        linkForData: `brigades`,
+                        field: `name`
+                    }
                 ],
                 items: [],
                 loading: true
