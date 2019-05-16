@@ -28,13 +28,14 @@
                 apiLink: 'brigades',
                 headers: [
                     {text: 'Назва бригади', value: 'name', sortable: false},
-                    {text: 'Бригадир', value: 'workerName', sortable: false},
+                    {text: 'Бригадир', value: 'manager', sortable: false},
                     {text: 'Ділянка', value: 'areaName', sortable: false},
+                    {text: 'Начальник', value: 'manager', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false},
                 ],
                 fields: [
                     {label: 'Назва бригади', value: 'name', type: 'textField'},
-                    {label: 'Бригадир', value: 'worker', type: 'select', linkForData: 'workers', field: 'workerName'},
+                    {label: 'Бригадир', value: 'worker', type: 'select', linkForData: 'workers', field: 'name'},
                     {label: 'Ділянка', value: 'area', type: 'select', linkForData: 'areas'},
                 ],
                 loading: true,

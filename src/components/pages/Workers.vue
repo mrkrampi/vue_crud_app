@@ -28,7 +28,7 @@
             return {
                 apiLink: 'workers',
                 headers: [
-                    {text: 'ПІБ', value: 'workerName', sortable: false},
+                    {text: 'ПІБ', value: 'name', sortable: false},
                     {text: 'Адреса', value: 'address', sortable: false},
                     {text: 'Номер телефону', value: 'phoneNumber', sortable: false},
                     {text: 'Зарплата', value: 'salary', sortable: false},
