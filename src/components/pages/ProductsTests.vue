@@ -45,8 +45,8 @@
                         linkForData: this.apiLink.slice(0, this.apiLink.length - 6)
                     },
                     {label: 'Назва тесту', value: 'typeOfTest', type: 'select', linkForData: 'type_of_tests'},
-                    {label: 'Дата тесту', value: 'testDate', type: 'textField'},
-                    {label: 'Результат', value: 'result', type: 'textField'},
+                    {label: 'Дата тесту', value: 'testDate', type: `datePicker`, size: 'md4'},
+                    {label: 'Результат', value: 'result', type: 'textField', size: "md8"},
                 ],
                 items: [],
                 loading: true

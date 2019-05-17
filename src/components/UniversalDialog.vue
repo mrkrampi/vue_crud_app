@@ -20,7 +20,7 @@
                                     v-if="field.type === 'textField'"
                             ></v-text-field>
                             <v-select
-                                    v-else
+                                    v-else-if="field.type === 'select'"
                                     :items="field.selectItems"
                                     v-model="item[field.value]"
                                     :item-text="field.field || 'name'"
@@ -28,6 +28,28 @@
                                     return-object
                                     :label="field.label"
                             ></v-select>
+                            <v-menu
+                                    v-else
+                                    min-width="240px"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    v-model="field.menu"
+                            >
+                                <v-text-field
+                                        :value="item[field.value]"
+                                        slot="activator"
+                                        :label="field.label"
+                                        prepend-icon="date_range"
+                                ></v-text-field>
+                                <v-date-picker
+                                        v-model="item[field.value]"
+                                        no-title
+                                        scrollable
+                                >
+                                    <v-spacer></v-spacer>
+                                    <v-btn flat color="primary" @click="field.menu = false">OK</v-btn>
+                                </v-date-picker>
+                            </v-menu>
                         </v-flex>
                     </v-layout>
                 </v-container>
@@ -44,9 +66,11 @@
 
 <script>
     import axios from 'axios';
+    import DatePicker from "@/components/others/DatePicker";
 
     export default {
         name: "UniversalDialog",
+        components: {DatePicker},
         props: {
             apiLink: String,
             fields: Array,
@@ -56,6 +80,7 @@
                 defaultItem: {},
                 dialog: false,
                 item: {},
+                menu: false
             }
         },
         computed: {
@@ -78,6 +103,7 @@
                 }, 300)
             },
             save() {
+                // console.log(this.item);
                 axios({
                     method: this.item.id ? "PUT" : "POST",
                     url: `api/${this.apiLink}/` + (this.item.id || ""),
