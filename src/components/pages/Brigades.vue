@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import axios from 'axios/index';
+    import axios from 'axios';
     import Snackbar from "@/components/others/Snackbar";
     import UniversalTable from "@/components/UniversalTable";
     import UniversalDialog from "@/components/UniversalDialog";
@@ -30,12 +30,11 @@
                     {text: 'Назва бригади', value: 'name', sortable: false},
                     {text: 'Бригадир', value: 'manager', sortable: false},
                     {text: 'Ділянка', value: 'areaName', sortable: false},
-                    {text: 'Начальник', value: 'manager', sortable: false},
                     {text: 'Дії', value: 'action', sortable: false},
                 ],
                 fields: [
                     {label: 'Назва бригади', value: 'name', type: 'textField'},
-                    {label: 'Бригадир', value: 'worker', type: 'select', linkForData: 'workers', field: 'name'},
+                    {label: 'Бригадир', value: 'worker', type: 'select', linkForData: 'technical_stuff', field: 'techName'},
                     {label: 'Ділянка', value: 'area', type: 'select', linkForData: 'areas'},
                 ],
                 loading: true,

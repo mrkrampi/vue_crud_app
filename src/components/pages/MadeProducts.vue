@@ -40,8 +40,8 @@
                 fields: [
                     {label: 'Назва виробу', value: 'product', type: 'select', linkForData: this.apiLink.slice(5)},
                     {label: 'Цикл робіт', value: 'cycleOfWork', type: 'select', linkForData: 'cycle_of_works'},
-                    {label: 'Дата виготовлення', value: 'dateOfManufacture', type: 'textField'},
-                    {label: 'Готовність', value: 'ready', type: 'textField'},
+                    {label: 'Дата виготовлення', value: 'dateOfManufacture', type: `datePicker`, size: 'md4'},
+                    {label: 'Готовність', value: 'ready', type: 'textField', size: "md8"},
                 ],
                 loading: true,
                 items: []
