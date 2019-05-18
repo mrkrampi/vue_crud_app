@@ -21,6 +21,19 @@ import CategoryOfWorkers from "@/components/pages/CategoryOfWorkers";
 import CycleOfWorks from "@/components/pages/CycleOfWorks";
 import Testers from "@/components/pages/Testers";
 import MadeProducts from "@/components/pages/MadeProducts";
+import Query14 from "@/components/queries/Query14";
+import Query13 from "@/components/queries/Query13";
+import Query12 from "@/components/queries/Query12";
+import Query11 from "@/components/queries/Query11";
+import Query10 from "@/components/queries/Query10";
+import Query9 from "@/components/queries/Query9";
+import Query7 from "@/components/queries/Query7";
+import Query6 from "@/components/queries/Query6";
+import Query5 from "@/components/queries/Query5";
+import Query4 from "@/components/queries/Query4";
+import Query3 from "@/components/queries/Query3";
+import Query1 from "@/components/queries/Query1";
+import Query2 from "@/components/queries/Query2";
 
 Vue.use(VueRouter);
 
@@ -94,6 +107,20 @@ const routes = [
         component: ProductsTests,
         props: {apiLink: 'rockets_tests', tableName: 'Тестування ракет'}
     },
+    {path: '/query1', component: Query1},
+    {path: '/query2', component: Query2},
+    {path: '/query3', component: Query3},
+    {path: '/query4', component: Query4},
+    {path: '/query5', component: Query5},
+    {path: '/query6', component: Query6},
+    {path: '/query7', component: Query7},
+    {path: '/query8', component: Query9},
+    {path: '/query9', component: Query9},
+    {path: '/query10', component: Query10},
+    {path: '/query11', component: Query11},
+    {path: '/query12', component: Query12},
+    {path: '/query13', component: Query13},
+    {path: '/query14', component: Query14},
     {path: '*', component: HelloWorld}
 ];
 

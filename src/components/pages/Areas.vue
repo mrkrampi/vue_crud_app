@@ -10,14 +10,13 @@
         <universal-dialog
                 :api-link="apiLink"
                 :fields="fields"
-                :callback="itemMaker"
         ></universal-dialog>
         <snackbar></snackbar>
     </div>
 </template>
 
 <script>
-    import axios from 'axios/index';
+    import axios from 'axios';
     import Snackbar from "@/components/others/Snackbar";
     import UniversalTable from "@/components/UniversalTable";
     import UniversalDialog from "@/components/UniversalDialog";
@@ -47,20 +46,6 @@
                 ],
                 items: [],
                 loading: true,
-            }
-        },
-        methods: {
-            itemMaker(item) {
-                // return {
-                //     ...item,
-                //     techName: `${item.technicalStuff.firstName}  ${item.technicalStuff.lastName}`,
-                //     departmentName: item.department.address
-                // }
-            },
-            nameFieldMaker(item) {
-                return {
-                    ...item,
-                }
             }
         },
         mounted() {

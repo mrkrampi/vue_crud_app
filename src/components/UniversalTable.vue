@@ -25,7 +25,7 @@
                         <td v-for="header in headers" v-show="header.value !== 'action'">
                             {{props.item[header.value]}}
                         </td>
-                    <td class="justify-center layout px-0">
+                    <td class="justify-center layout px-0" v-show="!hiddenAction">
                         <v-icon
                                 small
                                 class="mr-2"
@@ -59,7 +59,8 @@
             headers: Array,
             items: Array,
             tableName: String,
-            loading: Boolean
+            loading: Boolean,
+            hiddenAction: Boolean,
         },
         data() {
             return {

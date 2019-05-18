@@ -34,7 +34,7 @@
                 ],
                 fields: [
                     {label: 'Назва бригади', value: 'name', type: 'textField'},
-                    {label: 'Бригадир', value: 'worker', type: 'select', linkForData: 'technical_stuff', field: 'techName'},
+                    {label: 'Бригадир', value: 'worker', type: 'select', linkForData: 'technical_stuff', field: 'name'},
                     {label: 'Ділянка', value: 'area', type: 'select', linkForData: 'areas'},
                 ],
                 loading: true,

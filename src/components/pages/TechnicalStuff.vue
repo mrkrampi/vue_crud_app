@@ -28,7 +28,7 @@
             return {
                 apiLink: 'technical_stuff',
                 headers: [
-                    {text: 'ПІБ', value: 'techName', sortable: false},
+                    {text: 'ПІБ', value: 'name', sortable: false},
                     {text: 'Адреса', value: 'address', sortable: false},
                     {text: 'Номер телефону', value: 'phoneNumber', sortable: false},
                     {text: 'Зарплата', value: 'salary', sortable: false},
