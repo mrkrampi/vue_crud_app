@@ -8,7 +8,7 @@
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="headline">Запит №2</span>
+                    <span class="headline">Запит №11</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -25,35 +25,15 @@
                             </v-flex>
                             <v-flex xs12 sm12 md12>
                                 <v-select
-                                        :items="areas"
-                                        v-model="currentArea"
+                                        :items="laboratories"
+                                        v-model="currentLaboratory"
                                         item-text="name"
                                         item-value="id"
                                         return-object
-                                        label="Ділянка"
+                                        label="Лабораторія"
                                 ></v-select>
                             </v-flex>
-                            <v-flex xs12 sm12 md12>
-                                <v-select
-                                        :items="departments"
-                                        v-model="currentDepartment"
-                                        item-text="address"
-                                        item-value="id"
-                                        return-object
-                                        label="Цех"
-                                ></v-select>
-                            </v-flex>
-                            <v-flex xs12 sm12 md12>
-                                <v-select
-                                        :items="enterprises"
-                                        v-model="currentEnterprise"
-                                        item-text="name"
-                                        item-value="id"
-                                        return-object
-                                        label="Підприємство"
-                                ></v-select>
-                            </v-flex>
-
+                            <!--Date pickers-->
                             <v-flex md6>
                                 <v-menu
                                         min-width="240px"
@@ -117,7 +97,7 @@
                 :items="items"
                 :headers="headers"
                 :loading="loading"
-                table-name="Запит 2"
+                table-name="Запит 11"
                 :hidden-action="true"
         ></universal-table>
     </div>
@@ -128,14 +108,14 @@
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
-        name: "Query2",
+        name: "Query11",
         components: {UniversalTable},
         data() {
             return {
                 /*props for table*/
                 items: [],
                 headers: [
-                    {text: 'Назва виробу', value: 'name', sortable: false},
+                    {text: 'Назва', value: 'name', sortable: false},
                 ],
                 loading: false,
 
@@ -143,25 +123,22 @@
                 apiLink: '',
                 loadAll: false,
                 dialog: true,
+                canChoose: false,
 
                 /*objects for select*/
                 tables: [
-                    {name: 'Планери', apiLink: 'gliders', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Дельтаплани', apiLink: 'hang_gliders', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Гелікоптери', apiLink: 'helicopters', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Літаки', apiLink: 'planes', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Ракети', apiLink: 'rockets', queryLink: 'get-ready-by-area-enterprise-department'},
+                    {name: 'Планери', apiLink: 'gliders', queryLink: 'get-by-laboratory-and-date'},
+                    {name: 'Дельтаплани', apiLink: 'hang_gliders', queryLink: 'get-by-laboratory-and-date'},
+                    {name: 'Гелікоптери', apiLink: 'helicopters', queryLink: 'get-by-laboratory-and-date'},
+                    {name: 'Літаки', apiLink: 'planes', queryLink: 'get-by-laboratory-and-date'},
+                    {name: 'Ракети', apiLink: 'rockets', queryLink: 'get-by-laboratory-and-date'},
                     {name: 'Усі категорії'},
                 ],
-                departments: [],
-                areas: [],
-                enterprises: [],
+                laboratories: [],
 
                 /*save current select value*/
-                currentArea: '',
                 currentTable: {},
-                currentDepartment: '',
-                currentEnterprise: {},
+                currentLaboratory: {},
 
                 /*fields for date*/
                 startDate: '',
@@ -172,6 +149,7 @@
         },
         watch: {
             currentTable() {
+                this.canChoose = this.currentTable.apiLink;
                 this.loadAll = !this.currentTable.apiLink;
             }
         },
@@ -187,11 +165,9 @@
                         if (table.apiLink) {
                             axios.get(`/api/${table.apiLink}/${table.queryLink}`, {
                                 params: {
-                                    "department_id": this.currentDepartment.id,
-                                    "area_id": this.currentArea.id,
-                                    "enterprise_id": this.currentEnterprise.id,
                                     "start_date": this.startDate,
                                     "end_date": this.endDate,
+                                    "laboratory_id": this.currentLaboratory.id,
                                 }
                             })
                                 .then(response => this.items.push(...response.data))
@@ -204,11 +180,9 @@
                 } else {
                     axios.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
                         params: {
-                            "department_id": this.currentDepartment.id,
-                            "area_id": this.currentArea.id,
-                            "enterprise_id": this.currentEnterprise.id,
                             "start_date": this.startDate,
                             "end_date": this.endDate,
+                            "laboratory_id": this.currentLaboratory.id,
                         }
                     })
                         .then(response => this.items = response.data)
@@ -220,16 +194,8 @@
             }
         },
         mounted() {
-            axios.get(`/api/enterprise`)
-                .then(response => this.enterprises = response.data)
-                .catch(error => console.log(error));
-
-            axios.get(`/api/departments`)
-                .then(response => this.departments = response.data)
-                .catch(error => console.log(error));
-
-            axios.get(`/api/areas`)
-                .then(response => this.areas = response.data)
+            axios.get(`/api/laboratories`)
+                .then(response => this.laboratories = response.data)
                 .catch(error => console.log(error));
         }
     }

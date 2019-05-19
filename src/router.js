@@ -34,6 +34,7 @@ import Query4 from "@/components/queries/Query4";
 import Query3 from "@/components/queries/Query3";
 import Query1 from "@/components/queries/Query1";
 import Query2 from "@/components/queries/Query2";
+import Query8 from "@/components/queries/Query8";
 
 Vue.use(VueRouter);
 
@@ -114,7 +115,7 @@ const routes = [
     {path: '/query5', component: Query5},
     {path: '/query6', component: Query6},
     {path: '/query7', component: Query7},
-    {path: '/query8', component: Query9},
+    {path: '/query8', component: Query8},
     {path: '/query9', component: Query9},
     {path: '/query10', component: Query10},
     {path: '/query11', component: Query11},

@@ -8,7 +8,7 @@
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="headline">Запит №2</span>
+                    <span class="headline">Запит №8</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -53,53 +53,6 @@
                                         label="Підприємство"
                                 ></v-select>
                             </v-flex>
-
-                            <v-flex md6>
-                                <v-menu
-                                        min-width="240px"
-                                        :close-on-content-click="false"
-                                        :nudge-right="40"
-                                        v-model="datePicker1"
-                                >
-                                    <v-text-field
-                                            :value="startDate"
-                                            slot="activator"
-                                            label="Початкова дата"
-                                            prepend-icon="date_range"
-                                    ></v-text-field>
-                                    <v-date-picker
-                                            v-model="startDate"
-                                            no-title
-                                            scrollable
-                                    >
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat color="primary" @click="datePicker1 = false">OK</v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-flex>
-                            <v-flex md6>
-                                <v-menu
-                                        min-width="240px"
-                                        :close-on-content-click="false"
-                                        :nudge-right="40"
-                                        v-model="datePicker2"
-                                >
-                                    <v-text-field
-                                            :value="endDate"
-                                            slot="activator"
-                                            label="Початкова дата"
-                                            prepend-icon="date_range"
-                                    ></v-text-field>
-                                    <v-date-picker
-                                            v-model="endDate"
-                                            no-title
-                                            scrollable
-                                    >
-                                        <v-spacer></v-spacer>
-                                        <v-btn flat color="primary" @click="datePicker2 = false">OK</v-btn>
-                                    </v-date-picker>
-                                </v-menu>
-                            </v-flex>
                         </v-layout>
                     </v-container>
                 </v-card-text>
@@ -117,7 +70,7 @@
                 :items="items"
                 :headers="headers"
                 :loading="loading"
-                table-name="Запит 2"
+                table-name="Запит 8"
                 :hidden-action="true"
         ></universal-table>
     </div>
@@ -128,7 +81,7 @@
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
-        name: "Query2",
+        name: "Query8",
         components: {UniversalTable},
         data() {
             return {
@@ -146,11 +99,11 @@
 
                 /*objects for select*/
                 tables: [
-                    {name: 'Планери', apiLink: 'gliders', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Дельтаплани', apiLink: 'hang_gliders', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Гелікоптери', apiLink: 'helicopters', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Літаки', apiLink: 'planes', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Ракети', apiLink: 'rockets', queryLink: 'get-ready-by-area-enterprise-department'},
+                    {name: 'Планери', apiLink: 'gliders', queryLink: 'get-unready-by-area-and-department'},
+                    {name: 'Дельтаплани', apiLink: 'hang_gliders', queryLink: 'get-unready-by-area-and-department'},
+                    {name: 'Гелікоптери', apiLink: 'helicopters', queryLink: 'get-unready-by-area-and-department'},
+                    {name: 'Літаки', apiLink: 'planes', queryLink: 'get-unready-by-area-and-department'},
+                    {name: 'Ракети', apiLink: 'rockets', queryLink: 'get-unready-by-area-and-department'},
                     {name: 'Усі категорії'},
                 ],
                 departments: [],
@@ -162,12 +115,6 @@
                 currentTable: {},
                 currentDepartment: '',
                 currentEnterprise: {},
-
-                /*fields for date*/
-                startDate: '',
-                endDate: '',
-                datePicker1: false,
-                datePicker2: false,
             }
         },
         watch: {
@@ -190,8 +137,6 @@
                                     "department_id": this.currentDepartment.id,
                                     "area_id": this.currentArea.id,
                                     "enterprise_id": this.currentEnterprise.id,
-                                    "start_date": this.startDate,
-                                    "end_date": this.endDate,
                                 }
                             })
                                 .then(response => this.items.push(...response.data))
@@ -207,8 +152,6 @@
                             "department_id": this.currentDepartment.id,
                             "area_id": this.currentArea.id,
                             "enterprise_id": this.currentEnterprise.id,
-                            "start_date": this.startDate,
-                            "end_date": this.endDate,
                         }
                     })
                         .then(response => this.items = response.data)

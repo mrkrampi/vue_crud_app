@@ -8,7 +8,7 @@
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="headline">Запит №2</span>
+                    <span class="headline">Запит №13</span>
                 </v-card-title>
 
                 <v-card-text>
@@ -25,43 +25,36 @@
                             </v-flex>
                             <v-flex xs12 sm12 md12>
                                 <v-select
-                                        :items="areas"
-                                        v-model="currentArea"
+                                        :disabled="!canChoose"
+                                        :items="products"
+                                        v-model="currentProduct"
                                         item-text="name"
                                         item-value="id"
                                         return-object
-                                        label="Ділянка"
+                                        label="Виріб"
                                 ></v-select>
                             </v-flex>
                             <v-flex xs12 sm12 md12>
                                 <v-select
-                                        :items="departments"
-                                        v-model="currentDepartment"
-                                        item-text="address"
-                                        item-value="id"
-                                        return-object
-                                        label="Цех"
-                                ></v-select>
-                            </v-flex>
-                            <v-flex xs12 sm12 md12>
-                                <v-select
-                                        :items="enterprises"
-                                        v-model="currentEnterprise"
+                                        :items="laboratories"
+                                        v-model="currentLaboratory"
                                         item-text="name"
                                         item-value="id"
                                         return-object
-                                        label="Підприємство"
+                                        label="Лабораторія"
                                 ></v-select>
                             </v-flex>
-
+                            <!--Date pickers-->
                             <v-flex md6>
                                 <v-menu
+                                        :disabled="!canChoose"
                                         min-width="240px"
                                         :close-on-content-click="false"
                                         :nudge-right="40"
                                         v-model="datePicker1"
                                 >
                                     <v-text-field
+                                            :disabled="!canChoose"
                                             :value="startDate"
                                             slot="activator"
                                             label="Початкова дата"
@@ -79,6 +72,7 @@
                             </v-flex>
                             <v-flex md6>
                                 <v-menu
+                                        :disabled="!canChoose"
                                         min-width="240px"
                                         :close-on-content-click="false"
                                         :nudge-right="40"
@@ -86,6 +80,7 @@
                                 >
                                     <v-text-field
                                             :value="endDate"
+                                            :disabled="!canChoose"
                                             slot="activator"
                                             label="Початкова дата"
                                             prepend-icon="date_range"
@@ -117,7 +112,7 @@
                 :items="items"
                 :headers="headers"
                 :loading="loading"
-                table-name="Запит 2"
+                table-name="Запит 13"
                 :hidden-action="true"
         ></universal-table>
     </div>
@@ -128,14 +123,14 @@
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
-        name: "Query2",
+        name: "Query13",
         components: {UniversalTable},
         data() {
             return {
                 /*props for table*/
                 items: [],
                 headers: [
-                    {text: 'Назва виробу', value: 'name', sortable: false},
+                    {text: 'Назва', value: 'name', sortable: false},
                 ],
                 loading: false,
 
@@ -143,25 +138,24 @@
                 apiLink: '',
                 loadAll: false,
                 dialog: true,
+                canChoose: false,
 
                 /*objects for select*/
                 tables: [
-                    {name: 'Планери', apiLink: 'gliders', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Дельтаплани', apiLink: 'hang_gliders', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Гелікоптери', apiLink: 'helicopters', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Літаки', apiLink: 'planes', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Ракети', apiLink: 'rockets', queryLink: 'get-ready-by-area-enterprise-department'},
-                    {name: 'Усі категорії'},
+                    {name: 'Планери', apiLink: 'gliders', queryLink: 'get-by-glider-tests'},
+                    {name: 'Дельтаплани', apiLink: 'hang_gliders', queryLink: 'get-by-hang-gliders-tests'},
+                    {name: 'Гелікоптери', apiLink: 'helicopters', queryLink: 'get-by-helicopter-tests'},
+                    {name: 'Літаки', apiLink: 'planes', queryLink: 'get-by-plane-tests'},
+                    {name: 'Ракети', apiLink: 'rockets', queryLink: 'get-by-rocket-tests'},
+                    {name: 'Усі категорії', queryLink: 'get-used-equipment'},
                 ],
-                departments: [],
-                areas: [],
-                enterprises: [],
+                products: [],
+                laboratories: [],
 
                 /*save current select value*/
-                currentArea: '',
                 currentTable: {},
-                currentDepartment: '',
-                currentEnterprise: {},
+                currentProduct: {},
+                currentLaboratory: {},
 
                 /*fields for date*/
                 startDate: '',
@@ -172,7 +166,15 @@
         },
         watch: {
             currentTable() {
-                this.loadAll = !this.currentTable.apiLink;
+                this.loadAll = false;
+                this.canChoose = this.currentTable.apiLink;
+                if (this.currentTable.apiLink) {
+                    axios.get(`/api/${this.currentTable.apiLink}`)
+                        .then(response => this.products = response.data)
+                        .catch(error => console.log(error));
+                } else {
+                    this.loadAll = true;
+                }
             }
         },
         methods: {
@@ -182,54 +184,21 @@
             search() {
                 this.items = [];
                 this.loading = true;
-                if (this.loadAll) {
-                    for (let table of this.tables) {
-                        if (table.apiLink) {
-                            axios.get(`/api/${table.apiLink}/${table.queryLink}`, {
-                                params: {
-                                    "department_id": this.currentDepartment.id,
-                                    "area_id": this.currentArea.id,
-                                    "enterprise_id": this.currentEnterprise.id,
-                                    "start_date": this.startDate,
-                                    "end_date": this.endDate,
-                                }
-                            })
-                                .then(response => this.items.push(...response.data))
-                                .finally(() => {
-                                    this.closeForm();
-                                    this.loading = false
-                                });
-                        }
+                axios.get(`/api/equipments/${this.currentTable.queryLink}`, {
+                    params: {
+                        "laboratory_id": this.currentLaboratory.id,
                     }
-                } else {
-                    axios.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
-                        params: {
-                            "department_id": this.currentDepartment.id,
-                            "area_id": this.currentArea.id,
-                            "enterprise_id": this.currentEnterprise.id,
-                            "start_date": this.startDate,
-                            "end_date": this.endDate,
-                        }
-                    })
-                        .then(response => this.items = response.data)
-                        .finally(() => {
-                            this.closeForm();
-                            this.loading = false
-                        });
-                }
+                })
+                    .then(response => this.items = response.data)
+                    .finally(() => {
+                        this.closeForm();
+                        this.loading = false
+                    });
             }
         },
         mounted() {
-            axios.get(`/api/enterprise`)
-                .then(response => this.enterprises = response.data)
-                .catch(error => console.log(error));
-
-            axios.get(`/api/departments`)
-                .then(response => this.departments = response.data)
-                .catch(error => console.log(error));
-
-            axios.get(`/api/areas`)
-                .then(response => this.areas = response.data)
+            axios.get(`/api/laboratories`)
+                .then(response => this.laboratories = response.data)
                 .catch(error => console.log(error));
         }
     }
