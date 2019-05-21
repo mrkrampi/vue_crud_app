@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import {HTTP} from "@/util/HTTP";
 
     export default {
         name: 'HelloWorld',
@@ -46,7 +46,7 @@
             msg: String
         },
         mounted() {
-            axios.get("api/workers")
+            HTTP.get("api/workers")
                 .then(res => {
                     this.planes = res.data;
 

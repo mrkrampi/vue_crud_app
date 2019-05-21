@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -85,7 +85,7 @@
             search() {
                 this.items = [];
                 this.loading = true;
-                axios.get(`/api/workers/get-workers-by-category`, {
+                HTTP.get(`/api/workers/get-workers-by-category`, {
                     params: {
                         "category_id": this.currentCategory.id
                     }
@@ -96,7 +96,7 @@
                         this.loading = false
                     });
 
-                axios.get(`/api/technical_stuff/get-tech-by-category`, {
+                HTTP.get(`/api/technical_stuff/get-tech-by-category`, {
                     params: {
                         "category_id": this.currentCategory.id
                     }
@@ -109,7 +109,7 @@
             }
         },
         mounted() {
-            axios.get(`/api/${this.apiLink}`)
+            HTTP.get(`/api/${this.apiLink}`)
                 .then(response => this.categories = response.data)
                 .catch(error => console.log(error));
         }

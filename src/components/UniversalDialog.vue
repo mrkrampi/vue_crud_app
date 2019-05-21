@@ -65,7 +65,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import DatePicker from "@/components/others/DatePicker";
 
     export default {
@@ -104,7 +104,7 @@
             },
             save() {
                 // console.log(this.item);
-                axios({
+                HTTP({
                     method: this.item.id ? "PUT" : "POST",
                     url: `api/${this.apiLink}/` + (this.item.id || ""),
                     data: this.item,
@@ -126,7 +126,7 @@
 
             this.fields.forEach(field => {
                 if (field.linkForData) {
-                    axios.get(`api/${field.linkForData}`)
+                    HTTP.get(`api/${field.linkForData}`)
                         .then(res => field.selectItems = res.data)
                         .catch(error => console.log(error));
                 }

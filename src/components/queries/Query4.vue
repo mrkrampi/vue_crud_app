@@ -47,7 +47,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -82,7 +82,7 @@
             search() {
                 this.items = [];
                 this.loading = true;
-                axios.get(`/api/areas/find-by-department`, {
+                HTTP.get(`/api/areas/find-by-department`, {
                     params: {
                         "department_id": this.currentDepartment.id
                     }
@@ -95,7 +95,7 @@
             }
         },
         mounted() {
-            axios.get(`/api/departments`)
+            HTTP.get(`/api/departments`)
                 .then(response => this.departments = response.data)
                 .catch(error => console.log(error));
         }

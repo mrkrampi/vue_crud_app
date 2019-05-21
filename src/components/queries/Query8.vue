@@ -77,7 +77,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -132,7 +132,7 @@
                 if (this.loadAll) {
                     for (let table of this.tables) {
                         if (table.apiLink) {
-                            axios.get(`/api/${table.apiLink}/${table.queryLink}`, {
+                            HTTP.get(`/api/${table.apiLink}/${table.queryLink}`, {
                                 params: {
                                     "department_id": this.currentDepartment.id,
                                     "area_id": this.currentArea.id,
@@ -147,7 +147,7 @@
                         }
                     }
                 } else {
-                    axios.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
+                    HTTP.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
                         params: {
                             "department_id": this.currentDepartment.id,
                             "area_id": this.currentArea.id,
@@ -163,15 +163,15 @@
             }
         },
         mounted() {
-            axios.get(`/api/enterprise`)
+            HTTP.get(`/api/enterprise`)
                 .then(response => this.enterprises = response.data)
                 .catch(error => console.log(error));
 
-            axios.get(`/api/departments`)
+            HTTP.get(`/api/departments`)
                 .then(response => this.departments = response.data)
                 .catch(error => console.log(error));
 
-            axios.get(`/api/areas`)
+            HTTP.get(`/api/areas`)
                 .then(response => this.areas = response.data)
                 .catch(error => console.log(error));
         }

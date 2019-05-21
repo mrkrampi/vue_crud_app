@@ -123,7 +123,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -209,7 +209,7 @@
                 if (this.loadAll) {
                     for (let table of this.tables) {
                         if (table.apiLink) {
-                            axios.get(`/api/${table.apiLink}/get-ready-by-area-enterprise-department`, {
+                            HTTP.get(`/api/${table.apiLink}/get-ready-by-area-enterprise-department`, {
                                 params: {
                                     "area_id": this.currentArea.id,
                                     "department_id": this.currentDepartment.id,
@@ -226,7 +226,7 @@
                         }
                     }
                 } else {
-                    axios.get(`/api/${this.apiLink}`, {
+                    HTTP.get(`/api/${this.apiLink}`, {
                         params: {
                             "area_id": this.currentArea.id,
                             "department_id": this.currentDepartment.id,
@@ -244,15 +244,15 @@
             }
         },
         mounted() {
-            axios.get(`/api/areas`)
+            HTTP.get(`/api/areas`)
                 .then(response => this.areas = response.data)
                 .catch(error => console.log(error));
 
-            axios.get(`/api/departments`)
+            HTTP.get(`/api/departments`)
                 .then(response => this.departments = response.data)
                 .catch(error => console.log(error));
 
-            axios.get(`/api/enterprise`)
+            HTTP.get(`/api/enterprise`)
                 .then(response => this.enterprises = response.data)
                 .catch(error => console.log(error));
         }

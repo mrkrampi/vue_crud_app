@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -97,7 +97,7 @@
             search() {
                 this.items = [];
                 this.loading = true;
-                axios.get(`/api/masters/get-by-department-and-area`, {
+                HTTP.get(`/api/masters/get-by-department-and-area`, {
                     params: {
                         "area_id": this.currentArea.id,
                         "department_id": this.currentDepartment.id,
@@ -112,11 +112,11 @@
             }
         },
         mounted() {
-            axios.get(`/api/areas`)
+            HTTP.get(`/api/areas`)
                 .then(response => this.area = response.data)
                 .catch(error => console.log(error));
 
-            axios.get(`/api/departments`)
+            HTTP.get(`/api/departments`)
                 .then(response => this.departments = response.data)
                 .catch(error => console.log(error));
         }

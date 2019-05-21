@@ -50,7 +50,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
 
     export default {
         name: "UniversalTable",
@@ -72,7 +72,7 @@
         },
         methods: {
             deleteItem(item) {
-                axios.delete(`api/${this.apiLink}/` + item.id)
+                HTTP.delete(`api/${this.apiLink}/` + item.id)
                     .then(() => {
                         this.$root.$emit("call-snackbar", "Запис видалено");
                         let index = this.items.findIndex(x => x.id === item.id);

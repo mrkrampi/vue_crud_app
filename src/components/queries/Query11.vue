@@ -104,7 +104,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -163,7 +163,7 @@
                 if (this.loadAll) {
                     for (let table of this.tables) {
                         if (table.apiLink) {
-                            axios.get(`/api/${table.apiLink}/${table.queryLink}`, {
+                            HTTP.get(`/api/${table.apiLink}/${table.queryLink}`, {
                                 params: {
                                     "start_date": this.startDate,
                                     "end_date": this.endDate,
@@ -178,7 +178,7 @@
                         }
                     }
                 } else {
-                    axios.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
+                    HTTP.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
                         params: {
                             "start_date": this.startDate,
                             "end_date": this.endDate,
@@ -194,7 +194,7 @@
             }
         },
         mounted() {
-            axios.get(`/api/laboratories`)
+            HTTP.get(`/api/laboratories`)
                 .then(response => this.laboratories = response.data)
                 .catch(error => console.log(error));
         }

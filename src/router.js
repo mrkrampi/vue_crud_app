@@ -35,6 +35,7 @@ import Query3 from "@/components/queries/Query3";
 import Query1 from "@/components/queries/Query1";
 import Query2 from "@/components/queries/Query2";
 import Query8 from "@/components/queries/Query8";
+import SignIn from "@/components/SignIn";
 
 Vue.use(VueRouter);
 
@@ -122,10 +123,12 @@ const routes = [
     {path: '/query12', component: Query12},
     {path: '/query13', component: Query13},
     {path: '/query14', component: Query14},
+    {path: '/sign-in', component: SignIn},
+    {path: '/logout'},
     {path: '*', component: HelloWorld}
 ];
 
 export default new VueRouter({
     mode: 'history',
-    routes
+    routes,
 });

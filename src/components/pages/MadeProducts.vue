@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import axios from 'axios/index';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
     import UniversalDialog from "@/components/UniversalDialog";
     import Snackbar from "@/components/others/Snackbar";
@@ -56,7 +56,7 @@
         },
         methods: {
             loadItems() {
-                axios.get(`api/${this.apiLink}`)
+                HTTP.get(`api/${this.apiLink}`)
                     .then(response => {
                         this.items = response.data
                             .sort((a, b) => a.productName > b.productName ? 1 : -1);

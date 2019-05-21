@@ -119,7 +119,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -169,7 +169,7 @@
                 this.loadAll = false;
                 this.canChoose = this.currentTable.apiLink;
                 if (this.currentTable.apiLink) {
-                    axios.get(`/api/${this.currentTable.apiLink}`)
+                    HTTP.get(`/api/${this.currentTable.apiLink}`)
                         .then(response => this.products = response.data)
                         .catch(error => console.log(error));
                 } else {
@@ -184,7 +184,7 @@
             search() {
                 this.items = [];
                 this.loading = true;
-                axios.get(`/api/equipments/${this.currentTable.queryLink}`, {
+                HTTP.get(`/api/equipments/${this.currentTable.queryLink}`, {
                     params: {
                         "laboratory_id": this.currentLaboratory.id,
                     }
@@ -197,7 +197,7 @@
             }
         },
         mounted() {
-            axios.get(`/api/laboratories`)
+            HTTP.get(`/api/laboratories`)
                 .then(response => this.laboratories = response.data)
                 .catch(error => console.log(error));
         }

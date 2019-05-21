@@ -1,0 +1,65 @@
+<template>
+    <v-form>
+        <v-container>
+            <v-layout row wrap>
+
+                <v-flex xs12 sm6 md6 offset-md3>
+                    <v-text-field
+                            label="Логін"
+                            single-line
+                            v-model="user.username"
+                    ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm6 md6 offset-md3>
+                    <v-text-field
+                            label="Пароль"
+                            single-line
+                            type="password"
+                            v-model="user.password"
+                    ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 sm6 md6 offset-md3>
+                    <v-btn
+                            block
+                            color="secondary"
+                            @click="signIn"
+                    >
+                        Авторизуватися
+                    </v-btn>
+                </v-flex>
+
+            </v-layout>
+        </v-container>
+    </v-form>
+</template>
+
+<script>
+    import {HTTP} from "@/util/HTTP";
+
+    export default {
+        name: "SignIn",
+        data() {
+            return {
+                user: {
+                    username: '',
+                    password: ''
+                }
+            }
+        },
+        methods: {
+            signIn() {
+                HTTP({
+                    method: 'POST',
+                    url: '/api/auth/signin',
+                    data: this.user,
+                }).then(response => {
+                    this.$router.push("/workers");
+                    console.log(response)
+                })
+                    .catch(error => console.log(error));
+            }
+        }
+    }
+</script>

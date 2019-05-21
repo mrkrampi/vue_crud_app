@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import {HTTP} from "@/util/HTTP";
     import UniversalTable from "@/components/UniversalTable";
 
     export default {
@@ -95,7 +95,7 @@
         },
         watch: {
             currentTable() {
-                axios.get(`/api/${this.currentTable.apiLink}`)
+                HTTP.get(`/api/${this.currentTable.apiLink}`)
                     .then(response => this.products = response.data)
                     .catch(error => error);
             }
@@ -107,7 +107,7 @@
             search() {
                 this.items = [];
                 this.loading = true;
-                axios.get(`/api/cycle_of_works/${this.currentTable.queryLink}`, {
+                HTTP.get(`/api/cycle_of_works/${this.currentTable.queryLink}`, {
                     params: {
                         "product_id": this.currentProduct.id
                     }
