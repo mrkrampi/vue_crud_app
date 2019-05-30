@@ -1,42 +1,28 @@
 import axios from 'axios';
 
 export const HTTP = axios.create({
-    /*baseURL: 'http://localhost:9000',*/
+    /*baseURL:'url домен',*/
     headers: {'Content-Type': 'application/json'}
 });
 
 function getTokenFromStorage() {
-    return localStorage.getItem("ACCESS_TOKEN");
+    return localStorage.getItem('jwt');
 }
 
 HTTP.interceptors.request.use(request => {
-        request.headers = {
-            ...request.headers,
-        };
-        const fullUrl = request.baseURL + request.url;
+        const fullUrl = request.url;
         if (fullUrl.indexOf('/signin') === -1) {
             const token = getTokenFromStorage();
             if (token) {
-                request.headers = {
+                request.headers   = {
                     ...request.headers,
                     'Authorization': `Bearer ${token}`
                 };
             } else {
-                return Promise.reject();
+                throw new Error()
             }
         }
         return request;
     },
     error => Promise.reject(error)
 );
-
-HTTP.interceptors.response.use(response => {
-    if (response.config.url.indexOf('signin') !== -1) {
-        const token = response.data.accessToken;
-        localStorage.setItem("ACCESS_TOKEN", token);
-        const roles = response.data.role.map(item => item.name);
-        localStorage.setItem("role", roles);
-    } else {
-        return response;
-    }
-});

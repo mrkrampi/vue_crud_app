@@ -2,8 +2,8 @@
     <div>
         <v-dialog v-model="dialog" max-width="600" persistent>
             <template v-slot:activator="{ on }">
-                <v-btn outline dark color="indigo" v-on="on" fixed top right class="btn">
-                    Новий запит
+                <v-btn fab dark color="indigo" v-on="on" fixed right bottom>
+                    <v-icon dark>search</v-icon>
                 </v-btn>
             </template>
             <v-card>

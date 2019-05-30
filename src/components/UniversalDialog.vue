@@ -1,8 +1,8 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
     <v-dialog v-model="dialog" max-width="600" persistent>
         <template v-slot:activator="{ on }">
-            <v-btn outline dark color="indigo" v-on="on" fixed top right class="btn">
-                Додати запис
+            <v-btn fab dark color="indigo" v-on="on" fixed right bottom>
+                <v-icon dark>add</v-icon>
             </v-btn>
         </template>
         <v-card>
@@ -13,7 +13,7 @@
             <v-card-text>
                 <v-container grid-list-md>
                     <v-layout wrap>
-                        <v-flex v-for="field in fields" xs12 sm12 :class="field.size">
+                        <v-flex v-for="field in fields" xs12 sm12 :class="field.size" :key="field.value">
                             <v-text-field
                                     v-model="item[field.value]"
                                     :label="field.label"

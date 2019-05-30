@@ -36,10 +36,12 @@
 </template>
 
 <script>
-    import {HTTP} from "@/util/HTTP";
+    import {HTTP} from '@/util/HTTP'
+    import Snackbar from "@/components/others/Snackbar";
 
     export default {
         name: "SignIn",
+        components: {Snackbar},
         data() {
             return {
                 user: {
@@ -55,10 +57,18 @@
                     url: '/api/auth/signin',
                     data: this.user,
                 }).then(response => {
+                    const jwt = response.data.accessToken;
+                    const role = response.data.role[0].name;
+                    localStorage.setItem('jwt', jwt);
+                    localStorage.setItem('role', role);
+
+                    this.$root.$emit('login');
+
                     this.$router.push("/workers");
-                    console.log(response)
                 })
-                    .catch(error => console.log(error));
+                    .catch(() => {
+                        this.$root.$emit(`call-snackbar', 'Неправильне ім'я користувача або пароль`);
+                    });
             }
         }
     }

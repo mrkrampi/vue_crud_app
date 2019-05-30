@@ -6,6 +6,8 @@
                     @click="primaryDrawer.model = !primaryDrawer.model"
             ></v-toolbar-side-icon>
             <v-toolbar-title>База даних</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <user-info></user-info>
         </v-toolbar>
         <v-navigation-drawer
                 v-model="primaryDrawer.model"
@@ -47,8 +49,10 @@
 </template>
 
 <script>
+    import UserInfo from "@/components/UserInfo";
     export default {
         name: "Navigation",
+        components: {UserInfo},
         data() {
             return {
                 drawer: false,
@@ -64,7 +68,7 @@
                 items: [
                     {title: 'Працівники', path: "/workers", role: ["ROLE_ADMIN", "ROLE_HR"]},
                     {title: 'Технічні працівники', path: "/tech", role: ["ROLE_ADMIN", "ROLE_HR"]},
-                    {title: 'Тестери', path: "/testers", role: ["ROLE_ADMIN", "ROLE_HR"]},
+                    {title: 'Тестери', path: "/testers", role: ["ROLE_ADMIN", "ROLE_HR", "ROLE_TESTER"]},
                     {title: 'Підприємства', path: "/enterprises", role: ["ROLE_ADMIN", "ROLE_HR"]},
                     {title: 'Літаки', path: "/planes", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
                     {title: 'Ракети', path: "/rockets", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
@@ -82,12 +86,12 @@
                     {title: 'Бригади', path: "/brigades", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
                     {title: 'Обладнання', path: "/equipments", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
                     {title: 'Типи тестів', path: "/type_of_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
-                    {title: 'Лабораторії', path: "/laboratories", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
-                    {title: 'Тестування планерів', path: "/gliders_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
-                    {title: 'Тестування дельтапланів', path: "/hang_gliders_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
-                    {title: 'Тестування гелікоптерів', path: "/helicopters_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
-                    {title: 'Тестування літаків', path: "/plane_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
-                    {title: 'Тестування ракет', path: "/rockets_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
+                    {title: 'Лабораторії', path: "/laboratories", role: ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_TESTER"]},
+                    {title: 'Тестування планерів', path: "/gliders_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_TESTER"]},
+                    {title: 'Тестування дельтапланів', path: "/hang_gliders_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_TESTER"]},
+                    {title: 'Тестування гелікоптерів', path: "/helicopters_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_TESTER"]},
+                    {title: 'Тестування літаків', path: "/plane_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_TESTER"]},
+                    {title: 'Тестування ракет', path: "/rockets_tests", role: ["ROLE_ADMIN", "ROLE_MANAGER", "ROLE_TESTER"]},
                     {title: 'Категорії працівників', path: "/category_of_workers", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
                     {title: 'Цикли робіт', path: "/cycle_of_works", role: ["ROLE_ADMIN", "ROLE_MANAGER"]},
                     {title: 'Запит №1', path: "/query1", role: ["ROLE_ADMIN"]},

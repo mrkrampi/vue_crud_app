@@ -9,10 +9,7 @@ Vue.config.productionTip = false;
 Vue.use(Vuetify);
 
 router.beforeEach((to, from, next) => {
-  if (to.path === '/logout') {
-    localStorage.clear();
-    next('/sign-in');
-  }
+  const token = localStorage.getItem("ACCESS_TOKEN");
   next();
 });
 

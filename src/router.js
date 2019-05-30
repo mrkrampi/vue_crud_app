@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Router from "vue-router";
 import HelloWorld from '@/components/HelloWorld.vue'
 import Workers from "@/components/pages/Workers";
 import TechnicalStuff from "@/components/pages/TechnicalStuff";
@@ -37,98 +37,126 @@ import Query2 from "@/components/queries/Query2";
 import Query8 from "@/components/queries/Query8";
 import SignIn from "@/components/SignIn";
 
-Vue.use(VueRouter);
+Vue.use(Router);
 
 const routes = [
-    {path: '/', component: HelloWorld},
-    {path: '/workers', component: Workers},
-    {path: '/tech', component: TechnicalStuff},
-    {path: '/testers', component: Testers},
-    {path: '/planes', component: Planes},
-    {path: '/helicopters', component: Helicopters},
-    {path: '/rockets', component: Rockets},
-    {path: '/gliders', component: Gliders},
-    {path: '/hang_gliders', component: HangGliders},
+    {path: '/', component: HelloWorld, meta: {requireAuth: true}},
+    {path: '/workers', component: Workers, meta: {requireAuth: true}},
+    {path: '/tech', component: TechnicalStuff, meta: {requireAuth: true}},
+    {path: '/testers', component: Testers, meta: {requireAuth: true}},
+    {path: '/planes', component: Planes, meta: {requireAuth: true}},
+    {path: '/helicopters', component: Helicopters, meta: {requireAuth: true}},
+    {path: '/rockets', component: Rockets, meta: {requireAuth: true}},
+    {path: '/gliders', component: Gliders, meta: {requireAuth: true}},
+    {path: '/hang_gliders', component: HangGliders, meta: {requireAuth: true}},
     {
         path: '/made_planes',
         component: MadeProducts,
-        props: {apiLink: 'made_planes', tableName: 'Виготовлення літаків'}
+        props: {apiLink: 'made_planes', tableName: 'Виготовлення літаків'},
+        meta: {requireAuth: true}
     },
     {
         path: '/made_helicopters',
         component: MadeProducts,
-        props: {apiLink: 'made_helicopters', tableName: 'Виготовлення гелікоптерів'}
+        props: {apiLink: 'made_helicopters', tableName: 'Виготовлення гелікоптерів'},
+        meta: {requireAuth: true}
     },
     {
         path: '/made_rockets',
         component: MadeProducts,
-        props: {apiLink: 'made_rockets', tableName: 'Виготовлення ракет'}
+        props: {apiLink: 'made_rockets', tableName: 'Виготовлення ракет'},
+        meta: {requireAuth: true}
     },
     {
         path: '/made_gliders',
         component: MadeProducts,
-        props: {apiLink: 'made_gliders', tableName: 'Виготовлення планерів'}
+        props: {apiLink: 'made_gliders', tableName: 'Виготовлення планерів'},
+        meta: {requireAuth: true}
     },
     {
         path: '/made_hang_gliders',
         component: MadeProducts,
-        props: {apiLink: 'made_hang_gliders', tableName: 'Виготовлення дельтапланів'}
+        props: {apiLink: 'made_hang_gliders', tableName: 'Виготовлення дельтапланів'},
+        meta: {requireAuth: true}
     },
-    {path: '/enterprises', component: Enterprise},
-    {path: '/departments', component: Departments},
-    {path: '/areas', component: Areas},
-    {path: '/categories', component: Categories},
-    {path: '/brigades', component: Brigades},
-    {path: '/equipments', component: Equipment},
-    {path: '/type_of_tests', component: TypeOfTests},
-    {path: '/category_of_workers', component: CategoryOfWorkers},
-    {path: '/cycle_of_works', component: CycleOfWorks},
-    {path: '/laboratories', component: Laboratories},
+    {path: '/enterprises', component: Enterprise, meta: {requireAuth: true}},
+    {path: '/departments', component: Departments, meta: {requireAuth: true}},
+    {path: '/areas', component: Areas, meta: {requireAuth: true}},
+    {path: '/categories', component: Categories, meta: {requireAuth: true}},
+    {path: '/brigades', component: Brigades, meta: {requireAuth: true}},
+    {path: '/equipments', component: Equipment, meta: {requireAuth: true}},
+    {path: '/type_of_tests', component: TypeOfTests, meta: {requireAuth: true}},
+    {path: '/category_of_workers', component: CategoryOfWorkers, meta: {requireAuth: true}},
+    {path: '/cycle_of_works', component: CycleOfWorks, meta: {requireAuth: true}},
+    {path: '/laboratories', component: Laboratories, meta: {requireAuth: true}},
     {
         path: '/gliders_tests',
         component: ProductsTests,
-        props: {apiLink: 'gliders_tests', tableName: 'Тестування планерів'}
+        props: {apiLink: 'gliders_tests', tableName: 'Тестування планерів'},
+        meta: {requireAuth: true}
     },
     {
         path: '/hang_gliders_tests',
         component: ProductsTests,
-        props: {apiLink: 'hang_gliders_tests', tableName: 'Тестування дельтапланів'}
+        props: {apiLink: 'hang_gliders_tests', tableName: 'Тестування дельтапланів'},
+        meta: {requireAuth: true}
     },
     {
         path: '/helicopters_tests',
         component: ProductsTests,
-        props: {apiLink: 'helicopters_tests', tableName: 'Тестування гелікоптерів'}
+        props: {apiLink: 'helicopters_tests', tableName: 'Тестування гелікоптерів'},
+        meta: {requireAuth: true}
     },
     {
         path: '/plane_tests',
         component: ProductsTests,
-        props: {apiLink: 'planes_tests', tableName: 'Тестування літаків'}
+        props: {apiLink: 'planes_tests', tableName: 'Тестування літаків'},
+        meta: {requireAuth: true}
     },
     {
         path: '/rockets_tests',
         component: ProductsTests,
-        props: {apiLink: 'rockets_tests', tableName: 'Тестування ракет'}
+        props: {apiLink: 'rockets_tests', tableName: 'Тестування ракет'},
+        meta: {requireAuth: true}
     },
-    {path: '/query1', component: Query1},
-    {path: '/query2', component: Query2},
-    {path: '/query3', component: Query3},
-    {path: '/query4', component: Query4},
-    {path: '/query5', component: Query5},
-    {path: '/query6', component: Query6},
-    {path: '/query7', component: Query7},
-    {path: '/query8', component: Query8},
-    {path: '/query9', component: Query9},
-    {path: '/query10', component: Query10},
-    {path: '/query11', component: Query11},
-    {path: '/query12', component: Query12},
-    {path: '/query13', component: Query13},
-    {path: '/query14', component: Query14},
+    {path: '/query1', component: Query1, meta: {requireAuth: true}},
+    {path: '/query2', component: Query2, meta: {requireAuth: true}},
+    {path: '/query3', component: Query3, meta: {requireAuth: true}},
+    {path: '/query4', component: Query4, meta: {requireAuth: true}},
+    {path: '/query5', component: Query5, meta: {requireAuth: true}},
+    {path: '/query6', component: Query6, meta: {requireAuth: true}},
+    {path: '/query7', component: Query7, meta: {requireAuth: true}},
+    {path: '/query8', component: Query8, meta: {requireAuth: true}},
+    {path: '/query9', component: Query9, meta: {requireAuth: true}},
+    {path: '/query10', component: Query10, meta: {requireAuth: true}},
+    {path: '/query11', component: Query11, meta: {requireAuth: true}},
+    {path: '/query12', component: Query12, meta: {requireAuth: true}},
+    {path: '/query13', component: Query13, meta: {requireAuth: true}},
+    {path: '/query14', component: Query14, meta: {requireAuth: true}},
     {path: '/sign-in', component: SignIn},
-    {path: '/logout'},
+    {
+        path: '/logout'},
     {path: '*', component: HelloWorld}
 ];
 
-export default new VueRouter({
+const router = new Router({
     mode: 'history',
-    routes,
+    routes
 });
+
+router.beforeEach((to, from, next) => {
+    if (to.matched.some(record => record.meta.requireAuth)) {
+        if (!localStorage.getItem('jwt')) {
+            next({
+                path: '/sign-in',
+                params: {nextUrl: to.fullPath}
+            })
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
+
+export default router;
