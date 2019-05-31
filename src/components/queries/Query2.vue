@@ -9,6 +9,22 @@
             <v-card>
                 <v-card-title>
                     <span class="headline">Запит №2</span>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="primary" dark v-on="on">
+                                <v-icon
+                                        small
+                                        class="mr-2"
+                                        @click="editItem(props.item)"
+                                >
+                                    info
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <span> Одержати кількість та перелік виробів окремої категорії та загалом, які були виготовлені вказаним цехом, ділянкою, підприємством загалом за вказаний проміжок часу.</span>
+                    </v-tooltip>
+
                 </v-card-title>
 
                 <v-card-text>

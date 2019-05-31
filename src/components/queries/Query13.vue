@@ -9,6 +9,22 @@
             <v-card>
                 <v-card-title>
                     <span class="headline">Запит №13</span>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="primary" dark v-on="on">
+                                <v-icon
+                                        small
+                                        class="mr-2"
+                                        @click="editItem(props.item)"
+                                >
+                                    info
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Одержати перелік устаткування, яке використовувалося під час випробування вказаного виробу, виробів вказаної категорії та загалом у випробуваннях у конкретній лабораторії за вказаний період.</span>
+                    </v-tooltip>
+
                 </v-card-title>
 
                 <v-card-text>

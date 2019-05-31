@@ -9,6 +9,22 @@
             <v-card>
                 <v-card-title>
                     <span class="headline">Запит №7</span>
+
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn color="primary" dark v-on="on">
+                                <v-icon
+                                        small
+                                        class="mr-2"
+                                        @click="editItem(props.item)"
+                                >
+                                    info
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Одержати список майстрів вказаного цеху та вказаної ділянки. </span>
+                    </v-tooltip>
+
                 </v-card-title>
 
                 <v-card-text>

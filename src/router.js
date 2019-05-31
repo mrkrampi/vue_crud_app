@@ -136,7 +136,7 @@ const routes = [
     {path: '/sign-in', component: SignIn},
     {
         path: '/logout'},
-    {path: '*', component: HelloWorld}
+    /*{path: '*', component: HelloWorld}*/
 ];
 
 const router = new Router({
