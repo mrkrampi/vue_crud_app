@@ -40,7 +40,7 @@
                         value: 'technicalStuff',
                         type: 'select',
                         linkForData: 'technical_stuff',
-                        field: 'techName'
+                        field: 'name'
                     },
                     {label: 'Підприємство', value: 'enterprise', type: 'select', linkForData: 'enterprise'}
                 ],

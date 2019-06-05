@@ -37,10 +37,9 @@
                     {label: `Назва`, value: `name`, type: `textField`},
                     {
                         label: `Начальник ділянки`,
-                        value: `techName`,
+                        value: `technicalStuff`,
                         type: `select`,
                         linkForData: `technical_stuff`,
-                        field: 'techName'
                     },
                     {label: `Цех`, value: `department`, type: `select`, linkForData: 'departments', field: 'address'},
                 ],
@@ -48,16 +47,15 @@
                 loading: true,
             }
         },
-        mounted() {
-            HTTP.get(`api/${this.apiLink}`)
-                .then(response => {
-                    this.items = response.data;
-                    this.items.forEach(item => {
-                        // item.name = `${item.technicalStuff.firstName}  ${item.technicalStuff.lastName}`;
-                        item.departmentName = item.department.address;
-                    })
-                }).catch(error => console.log(error))
-                .finally(() => this.loading = false);
+        async mounted() {
+            try {
+                const { data } = await HTTP.get(`api/${this.apiLink}`);
+                this.items = data;
+            } catch (e) {
+                console.log(e);
+            } finally {
+                this.loading = false;
+            }
         }
     }
 </script>

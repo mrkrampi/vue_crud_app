@@ -22,9 +22,9 @@
             >
                 <v-progress-linear v-slot:progress color="blue" indeterminate></v-progress-linear>
                 <template v-slot:items="props">
-                        <td v-for="header in headers" v-show="header.value !== 'action'">
-                            {{props.item[header.value]}}
-                        </td>
+                    <td v-for="header in headers" v-show="header.value !== 'action'">
+                        {{props.item[header.value]}}
+                    </td>
                     <td class="justify-center layout px-0" v-show="!hiddenAction">
                         <v-icon
                                 small
@@ -71,13 +71,16 @@
             }
         },
         methods: {
-            deleteItem(item) {
-                HTTP.delete(`api/${this.apiLink}/` + item.id)
-                    .then(() => {
-                        this.$root.$emit("call-snackbar", "Запис видалено");
-                        let index = this.items.findIndex(x => x.id === item.id);
-                        this.items.splice(index, 1);
-                    });
+            async deleteItem(item) {
+                try {
+                    await HTTP.delete(`api/${this.apiLink}/` + item.id);
+
+                    this.$root.$emit("call-snackbar", "Запис видалено");
+                    let index = this.items.findIndex(x => x.id === item.id);
+                    this.items.splice(index, 1);
+                } catch (e) {
+                    console.log(e);
+                }
             },
             editItem(item) {
                 this.$root.$emit("item-edit-dialog", item);

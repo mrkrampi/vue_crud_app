@@ -63,12 +63,16 @@
                 items: []
             }
         },
-        mounted() {
-            HTTP.get(`api/${this.apiLink}`)
-                .then(response => this.items = response.data
-                    .sort((a, b) => a.name > b.name ? 1 : -1))
-                .catch(error => console.log(error))
-                .finally(() => this.loading = false);
+        async mounted() {
+            try {
+                const { data } = await HTTP.get(`api/${this.apiLink}`);
+                this.items = data;
+                this.items.sort((a, b) => a.name > b.name ? 1 : -1);
+            } catch (e) {
+                console.log(e);
+            } finally {
+                this.loading = false;
+            }
         }
     }
 </script>

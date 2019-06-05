@@ -77,7 +77,6 @@
         },
         data() {
             return {
-                defaultItem: {},
                 dialog: false,
                 item: {},
                 menu: false
@@ -99,23 +98,26 @@
             close() {
                 this.dialog = false;
                 setTimeout(() => {
-                    this.item = Object.assign({}, this.default);
+                    this.item = {};
                 }, 300)
             },
-            save() {
-                // console.log(this.item);
-                HTTP({
-                    method: this.item.id ? "PUT" : "POST",
-                    url: `api/${this.apiLink}/` + (this.item.id || ""),
-                    data: this.item,
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).then(response => {
+            async save() {
+                try {
+                    const { data } = await HTTP({
+                        method: this.item.id ? "PUT" : "POST",
+                        url: `api/${this.apiLink}/` + (this.item.id || ""),
+                        data: this.item,
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
                     this.close();
                     this.$root.$emit("call-snackbar", this.item.id ? "Запис відредаговано" : "Запис додано");
-                    this.$root.$emit((this.item.id ? "edit" : "add") + "-item", response.data);
-                }).catch(err => console.log(err));
+                    this.$root.$emit((this.item.id ? "edit" : "add") + "-item", data);
+                } catch (e) {
+                    console.log(e);
+                }
             }
         },
         mounted() {
@@ -134,9 +136,3 @@
         }
     }
 </script>
-
-<style scoped>
-    .btn {
-        z-index: 999;
-    }
-</style>
