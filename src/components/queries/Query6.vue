@@ -110,36 +110,36 @@
             closeForm() {
                 this.dialog = false;
             },
-            search() {
+            async search() {
                 this.items = [];
                 this.loading = true;
-                HTTP.get(`/api/workers/get-workers-by-area-and-department`, {
-                    params: {
-                        "area_id": this.currentArea.id,
-                        "department_id": this.currentDepartment.id,
-                    }
-                })
-                    .then(response => this.items = response.data)
-                    .finally(() => {
-                        this.closeForm();
-                        this.loading = false
+
+                try {
+                    const {data} = await HTTP.get(`/api/workers/get-workers-by-area-and-department`, {
+                        params: {
+                            "area_id": this.currentArea.id,
+                            "department_id": this.currentDepartment.id,
+                        }
                     });
+                    this.items = data;
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    this.closeForm();
+                    this.loading = false;
+                }
             }
         },
-        mounted() {
-            HTTP.get(`/api/areas`)
-                .then(response => this.area = response.data)
-                .catch(error => console.log(error));
+        async mounted() {
+            try {
+                const {data: areas} = await HTTP.get(`/api/areas`);
+                this.area = areas;
 
-            HTTP.get(`/api/departments`)
-                .then(response => this.departments = response.data)
-                .catch(error => console.log(error));
+                const {data: departments} = await HTTP.get(`/api/departments`);
+                this.departments = departments;
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 </script>
-
-<style scoped>
-    .btn {
-        z-index: 999;
-    }
-</style>

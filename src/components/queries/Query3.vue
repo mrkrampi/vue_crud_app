@@ -98,42 +98,45 @@
             closeForm() {
                 this.dialog = false;
             },
-            search() {
+            async search() {
                 this.items = [];
                 this.loading = true;
-                HTTP.get(`/api/workers/get-workers-by-category`, {
-                    params: {
-                        "category_id": this.currentCategory.id
-                    }
-                })
-                    .then(response => this.items = response.data)
-                    .finally(() => {
-                        this.closeForm();
-                        this.loading = false
-                    });
 
-                HTTP.get(`/api/technical_stuff/get-tech-by-category`, {
-                    params: {
-                        "category_id": this.currentCategory.id
-                    }
-                })
-                    .then(response => this.items.push(...response.data))
-                    .finally(() => {
-                        this.closeForm();
-                        this.loading = false
+                try {
+                    const { data: workers } = await HTTP.get(`/api/workers/get-workers-by-category`, {
+                        params: {
+                            "category_id": this.currentCategory.id
+                        }
                     });
+                    this.items = workers;
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    this.closeForm();
+                }
+
+                try {
+                    const { data: tech } = await HTTP.get(`/api/technical_stuff/get-tech-by-category`, {
+                        params: {
+                            "category_id": this.currentCategory.id
+                        }
+                    });
+                    this.items.push(...tech);
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    this.loading = false
+
+                }
             }
         },
-        mounted() {
-            HTTP.get(`/api/${this.apiLink}`)
-                .then(response => this.categories = response.data)
-                .catch(error => console.log(error));
+        async mounted() {
+            try {
+                const { data } = await HTTP.get(`/api/${this.apiLink}`);
+                this.categories = data;
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 </script>
-
-<style scoped>
-    .btn {
-        z-index: 999;
-    }
-</style>
