@@ -173,52 +173,55 @@
             closeForm() {
                 this.dialog = false;
             },
-            search() {
+            async search() {
                 this.items = [];
                 this.loading = true;
                 if (this.loadAll) {
                     for (let table of this.tables) {
                         if (table.apiLink) {
-                            HTTP.get(`/api/${table.apiLink}/${table.queryLink}`, {
-                                params: {
-                                    "start_date": this.startDate,
-                                    "end_date": this.endDate,
-                                    "laboratory_id": this.currentLaboratory.id,
-                                }
-                            })
-                                .then(response => this.items.push(...response.data))
-                                .finally(() => {
-                                    this.closeForm();
-                                    this.loading = false
+                            try {
+                                const {data} = await HTTP.get(`/api/${table.apiLink}/${table.queryLink}`, {
+                                    params: {
+                                        "start_date": this.startDate,
+                                        "end_date": this.endDate,
+                                        "laboratory_id": this.currentLaboratory.id,
+                                    }
                                 });
+                                this.items.push(...data);
+                            } catch (e) {
+                                console.log(e);
+                            } finally {
+                                this.closeForm();
+                                this.loading = false;
+                            }
                         }
                     }
                 } else {
-                    HTTP.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
-                        params: {
-                            "start_date": this.startDate,
-                            "end_date": this.endDate,
-                            "laboratory_id": this.currentLaboratory.id,
-                        }
-                    })
-                        .then(response => this.items = response.data)
-                        .finally(() => {
-                            this.closeForm();
-                            this.loading = false
+                    try {
+                        const {data} = await HTTP.get(`/api/${this.currentTable.apiLink}/${this.currentTable.queryLink}`, {
+                            params: {
+                                "start_date": this.startDate,
+                                "end_date": this.endDate,
+                                "laboratory_id": this.currentLaboratory.id,
+                            }
                         });
+                        this.items = data;
+                    } catch (e) {
+                        console.log(e);
+                    } finally {
+                        this.closeForm();
+                        this.loading = false;
+                    }
                 }
             }
         },
-        mounted() {
-            HTTP.get(`/api/laboratories`)
-                .then(response => this.laboratories = response.data)
-                .catch(error => console.log(error));
+        async mounted() {
+            try {
+                const {data} = await HTTP.get(`/api/laboratories`);
+                this.laboratories = data;
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 </script>
-
-<style scoped>
-    .btn {
-        z-index: 999;
-    }
-</style>

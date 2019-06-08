@@ -129,13 +129,16 @@
             }
         },
         watch: {
-            currentTable() {
+            async currentTable() {
                 this.loadAll = false;
                 this.canChoose = this.currentTable.apiLink;
                 if (this.currentTable.apiLink) {
-                    HTTP.get(`/api/${this.currentTable.apiLink}`)
-                        .then(response => this.products = response.data)
-                        .catch(error => console.log(error));
+                    try {
+                        const {data} = await HTTP.get(`/api/${this.currentTable.apiLink}`);
+                        this.products = data;
+                    } catch (e) {
+                        console.log(e);
+                    }
                 } else {
                     this.loadAll = true;
                 }
@@ -145,32 +148,33 @@
             closeForm() {
                 this.dialog = false;
             },
-            search() {
+            async search() {
                 this.items = [];
                 this.loading = true;
-                HTTP.get(`/api/testers/${this.currentTable.queryLink}`, {
-                    params: {
-                        "product_id": this.currentProduct.id,
-                        "laboratory_id": this.currentLaboratory.id,
-                    }
-                })
-                    .then(response => this.items = response.data)
-                    .finally(() => {
-                        this.closeForm();
-                        this.loading = false
+
+                try {
+                    const {data} = await HTTP.get(`/api/testers/${this.currentTable.queryLink}`, {
+                        params: {
+                            "product_id": this.currentProduct.id,
+                            "laboratory_id": this.currentLaboratory.id,
+                        }
                     });
+                    this.items = data;
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    this.closeForm();
+                    this.loading = false;
+                }
             }
         },
-        mounted() {
-            HTTP.get(`/api/laboratories`)
-                .then(response => this.laboratories = response.data)
-                .catch(error => console.log(error));
+        async mounted() {
+            try {
+                const {data} = await HTTP.get(`/api/laboratories`);
+                this.laboratories = data;
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 </script>
-
-<style scoped>
-    .btn {
-        z-index: 999;
-    }
-</style>

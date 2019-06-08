@@ -113,36 +113,37 @@
             }
         },
         watch: {
-            currentTable() {
-                HTTP.get(`/api/${this.currentTable.apiLink}`)
-                    .then(response => this.products = response.data)
-                    .catch(error => error);
+            async currentTable() {
+                try {
+                    const {data} = await HTTP.get(`/api/${this.currentTable.apiLink}`);
+                    this.products = data;
+                } catch (e) {
+                    console.log(e);
+                }
             }
         },
         methods: {
             closeForm() {
                 this.dialog = false;
             },
-            search() {
+            async search() {
                 this.items = [];
                 this.loading = true;
-                HTTP.get(`/api/workers/${this.currentTable.queryLink}`, {
-                    params: {
-                        "product_id": this.currentProduct.id,
-                    }
-                })
-                    .then(response => this.items = response.data)
-                    .finally(() => {
-                        this.closeForm();
-                        this.loading = false
+
+                try {
+                    const {data} = await HTTP.get(`/api/workers/${this.currentTable.queryLink}`, {
+                        params: {
+                            "product_id": this.currentProduct.id,
+                        }
                     });
+                    this.items = data;
+                } catch (e) {
+                    console.log(e);
+                } finally {
+                    this.closeForm();
+                    this.loading = false;
+                }
             }
         }
     }
 </script>
-
-<style scoped>
-    .btn {
-        z-index: 999;
-    }
-</style>
