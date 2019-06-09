@@ -207,7 +207,10 @@
                 try {
                     const {data} = await HTTP.get(`/api/equipments/${this.currentTable.queryLink}`, {
                         params: {
+                            "product_id": this.currentProduct.id,
                             "laboratory_id": this.currentLaboratory.id,
+                            "start_date": this.startDate,
+                            "end_date": this.endDate
                         }
                     });
                     this.items = data;
